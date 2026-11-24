@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grab & Go Direct Button</title>
+    <style>
+        :root {
+            --primary: #395763;
+            --accent: #2F6B64;
+        }
+        body { 
+            font-family: sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: transparent; 
+        }
+        .container {
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .label-text { 
+            font-size: 11px; 
+            color: #000; 
+            font-weight: bold; 
+            margin-top: 2px; 
+        }
+        select { 
+            padding: 8px; 
+            border-radius: 10px; 
+            border: 1px solid #ddd; 
+            font-size: 13px; 
+            outline: none; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+        .price-container {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .price-amount {
+            font-size: 16px;
+            color: #111;
+        }
+        .button-row { 
+            width: 100%; 
+            box-sizing: border-box; 
+            margin-top: 4px;
+        }
+        .btn-cart { 
+            width: 100%;
+            padding: 12px; 
+            font-weight: bold; 
+            border-radius: 10px; 
+            border: none; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            color: white; 
+            text-align: center; 
+            font-size: 13px;
+            background-color: var(--accent);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-cart:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="dynamic-dropdowns-container"></div>
+
+    <div class="price-container">
+        <span>Price:</span>
+        <span id="price-display" class="price-amount">$0.00</span>
+    </div>
+
+    <div class="button-row">
+        <button id="cart-btn" class="btn-cart" onclick="addGrabAndGoItem()">Add to Cart</button>
+    </div>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const itemName = params.get('name') ? params.get('name').replace(/_/g, ' ') : "Grab & Go Item";
+    const basePrice = parseFloat(params.get('price')) || 0.00;
+    const rawVars = params.get('vars') || "";
+
+    const dropdownContainer = document.getElementById('dynamic-dropdowns-container');
+
+    function calculateTotalPrice() {
+        let totalAddonCost = 0;
+        const optionMenus = document.querySelectorAll('.dynamic-option-menu');
+        
+        optionMenus.forEach(menu => {
+            const selectedOpt = menu.options[menu.selectedIndex];
+            if (selectedOpt) {
+                totalAddonCost += parseFloat(selectedOpt.dataset.price) || 0;
+            }
+        });
+        
+        return basePrice + totalAddonCost;
+    }
+
+    function updatePriceDisplay() {
+        const currentPrice = calculateTotalPrice();
+        document.getElementById('price-display').textContent = `$${currentPrice.toFixed(2)}`;
+    }
+
+    // Parse rawVars generated from Google Sheets (Col A + Col B + Col C)
+    if (rawVars.trim() !== "") {
+        // Strip out leading Column A (Item Name) and Column B (Price) text prefix
+        let optionsOnlyString = rawVars;
+
+        // Locates where the first option begins (looks for where "|price" appears)
+        const firstPipeIndex = rawVars.indexOf('|');
+        if (firstPipeIndex !== -1) {
+            const prePipe = rawVars.substring(0, firstPipeIndex);
+            // Find where options start after the concatenated Col A + Col B prefix
+            const match = prePipe.match(/^.*?(\d+(\.\d+)?)(.*)$/);
+            if (match && match[3]) {
+                optionsOnlyString = match[3] + rawVars.substring(firstPipeIndex);
+            }
+        }
+
+        const items = optionsOnlyString.split(',');
+        if (items.length > 0) {
+            const lbl = document.createElement('label');
+            lbl.className = "label-text";
+            lbl.textContent = "Select Variety:";
+            
+            const sel = document.createElement('select');
+            sel.className = "dynamic-option-menu";
+            sel.dataset.groupName = "Variety";
+            
+            sel.addEventListener('change', updatePriceDisplay);
+
+            items.forEach(item => {
+                if (!item.trim()) return;
+                let valName = item.trim();
+                let priceModifier = 0;
+                
+                if (item.includes('|')) {
+                    const itemParts = item.split('|');
+                    valName = itemParts[0].trim();
+                    priceModifier = parseFloat(itemParts[1]) || 0;
+                }
+                
+                const opt = document.createElement('option');
+                opt.value = valName;
+                opt.dataset.price = priceModifier;
+                opt.textContent = valName + (priceModifier > 0 ? ` (+$${priceModifier.toFixed(2)})` : '');
+                sel.appendChild(opt);
+            });
+            
+            dropdownContainer.appendChild(lbl);
+            dropdownContainer.appendChild(sel);
+        }
+    }
+
+    updatePriceDisplay();
+
+    function addGrabAndGoItem() {
+        const clickedBtn = document.getElementById('cart-btn');
+        const optionMenus = document.querySelectorAll('.dynamic-option-menu');
+        
+        let varietyDetails = [];
+        optionMenus.forEach(menu => {
+            const groupName = menu.dataset.groupName;
+            const selectedOpt = menu.options[menu.selectedIndex];
+            varietyDetails.push(`${groupName}: ${selectedOpt.value}`);
+        });
+
+        const finalDetails = varietyDetails.length > 0 
+            ? `Grab & Go (${varietyDetails.join(' | ')})` 
+            : "Grab & Go (Ready to Ship As-Is)";
+
+        const finalUnitPrice = calculateTotalPrice();
+        
+        let cart = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+        
+        cart.push({
+            name: itemName,
+            price: finalUnitPrice,
+            details: finalDetails,
+            qty: 1
+        });
+        
+        localStorage.setItem('final_shopping_cart', JSON.stringify(cart));
+
+        clickedBtn.textContent = "✓ Added!";
+        clickedBtn.style.backgroundColor = "#28a745";
+        clickedBtn.disabled = true;
+
+        setTimeout(() => {
+            clickedBtn.textContent = "Add to Cart";
+            clickedBtn.style.backgroundColor = "var(--accent)";
+            clickedBtn.disabled = false;
+        }, 1500);
+    }
+</script>
+</body>
+</html>

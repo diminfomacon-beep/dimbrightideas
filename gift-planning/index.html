@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dim Bright Ideas - Gift Planning Portal</title>
+    
+    <!-- Typography & Iconography Asset Architecture -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Cascading Design Tokens & Variable Space */
+        :root {
+            --primary-color: #0e4d42;
+            --primary-hover: #0a3a32;
+            --secondary-color: #b45309;
+            --bg-color: #fffefb;
+            --card-bg: #ffffff;
+            --text-color: #1b2a25;
+            --text-light: #54665e;
+            --border-color: #e9ddc9;
+            --accent-soft: #fff6e6;
+            --shadow-sm: 0 2px 4px rgba(27, 42, 37, 0.05);
+            --shadow-md: 0 8px 16px rgba(27, 42, 37, 0.08);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+        }
+
+        /* Base Structural Reset & Layout Foundation */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .portal-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero — page header so the whole page can live on GitHub */
+        .hero {
+            background: linear-gradient(180deg, #fff6e6, #fffefb);
+            border-bottom: 1px solid var(--border-color);
+            padding: 56px 20px 46px;
+            text-align: center;
+        }
+
+        .hero-inner {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .hero .eyebrow {
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0 0 14px;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--secondary-color);
+            font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+            line-height: 1.2;
+            margin: 0 0 14px;
+        }
+
+        .hero .lede {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+
+        .hero-fees {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .hero-fee {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-sm);
+            text-align: left;
+            min-width: 240px;
+        }
+
+        .hero-fee strong {
+            display: block;
+            font-family: 'DM Serif Display', serif;
+            color: var(--secondary-color);
+            font-size: 1.05rem;
+        }
+
+        .hero-fee span {
+            font-size: .9rem;
+            color: var(--text-light);
+        }
+
+        /* Top-Level Navigation Engine */
+        .navigation-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-light);
+            padding: 12px 28px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn:hover {
+            color: var(--secondary-color);
+            background-color: var(--accent-soft);
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            background-color: var(--secondary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Form & Sidebar Grid Core Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                grid-template-columns: 2.1fr 0.9fr;
+            }
+        }
+
+        /* Main Structural Form Foundations */
+        .main-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (min-width: 768px) {
+            .main-form {
+                padding: 45px;
+            }
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px;
+        }
+
+        .form-header h1 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        section {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        /* Form Input Element Architecture */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group label span {
+            color: #c62828;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background-color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(176, 137, 104, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Custom Input Groups (Radios & Checkboxes) */
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-item:hover,
+        .checkbox-item:hover {
+            border-color: var(--primary-color);
+            background-color: var(--accent-soft);
+        }
+
+        .radio-item input,
+        .checkbox-item input {
+            margin-right: 10px;
+            accent-color: var(--primary-color);
+            width: 16px;
+            height: 16px;
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Document Interaction Button */
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            border: none;
+            padding: 16px 32px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:disabled {
+            background-color: var(--border-color);
+            color: var(--text-light);
+            cursor: not-allowed;
+        }
+
+        /* Sidebar & Structural Information Cards */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .side-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .side-card h3 {
+            font-family: 'DM Serif Display', serif;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+
+        .fee-card {
+            background: linear-gradient(145deg, #ffffff, var(--accent-soft));
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .quote-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+        }
+    
+        /* Step-by-step wizard (Individual form only) */
+        .step-panel { display: none; }
+        .step-panel.active { display: block; }
+        .wizard-progress { margin-bottom: 28px; }
+        .wizard-meta { font-size: .85rem; font-weight: 600; color: var(--text-light); margin-bottom: 8px; }
+        .progress-track { height: 8px; background: var(--accent-soft); border: 1px solid var(--border-color); border-radius: 999px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary-color); width: 25%; transition: width .3s ease; }
+        .wizard-steps { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; font-size: .78rem; font-weight: 600; color: var(--text-light); }
+        .wizard-steps span { flex: 1; text-align: center; }
+        .wizard-steps span.active { color: var(--secondary-color); }
+        .wizard-steps span.done { color: var(--primary-color); }
+        .step-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+        .step-nav .btn-next, .step-nav .btn-back { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; padding: 13px 26px; border-radius: var(--radius-sm); cursor: pointer; transition: background-color .2s, border-color .2s; }
+        .step-nav .btn-next { background-color: var(--secondary-color); color: #ffffff; border: none; }
+        .step-nav .btn-next:hover { background-color: var(--primary-hover); }
+        .step-nav .btn-back { background: transparent; color: var(--secondary-color); border: 1.5px solid var(--border-color); }
+        .step-nav .btn-back:hover { border-color: var(--primary-color); }
+        .step-nav .btn-next:only-child { margin-left: auto; }
+    </style>
+</head>
+<body>
+
+<!-- Hero — page header -->
+<header class="hero">
+    <div class="hero-inner">
+        <p class="eyebrow">D.I.M. Bright Ideas LLC &middot; Gift Planning</p>
+        <h1>Not sure what to give?<br>We'll plan it with you.</h1>
+        <p class="lede">Tell us about your person and the occasion &mdash; we'll help you choose, design, and deliver the right gift. One thoughtful gift, or branded gifts for a whole team.</p>
+        <div class="hero-fees">
+            <div class="hero-fee"><strong>$20 planning fee</strong><span>Individual gifts &mdash; applied toward your final purchase</span></div>
+            <div class="hero-fee"><strong>$50 design deposit</strong><span>Corporate &amp; bulk orders &mdash; applied to your total order value</span></div>
+        </div>
+    </div>
+</header>
+
+<div class="portal-wrapper">
+
+    <!-- Global Tab Infrastructure Engine -->
+    <div class="navigation-tabs">
+        <button class="tab-btn active" id="tab-individual" onclick="switchFormView('individual')">
+            <i data-lucide="gift" style="width: 18px; height: 18px;"></i> Custom Individual Gift
+        </button>
+        <button class="tab-btn" id="tab-bulk" onclick="switchFormView('bulk')">
+            <i data-lucide="building-2" style="width: 18px; height: 18px;"></i> Corporate & Bulk Orders
+        </button>
+    </div>
+
+    <!-- VIEW 1: INDIVIDUAL GIFT PLANNER PORTAL -->
+    <div id="view-individual" style="display: block; width: 100%;">
+        <div class="container">
+            <form class="main-form" id="giftForm">
+                <div class="form-header">
+                    <h1>Individual Gift Planning Form</h1>
+                    <p>Provide information about your recipient and relationship to help build a meaningful custom gift system.</p>
+                </div>
+
+                
+                <!-- Step-by-step progress (Individual form) -->
+                <div class="wizard-progress" id="wizard-progress">
+                    <div class="wizard-meta"><span id="wizard-label">Step 1 of 4</span></div>
+                    <div class="progress-track"><div class="progress-fill" id="wizard-fill"></div></div>
+                    <div class="wizard-steps" id="wizard-steps">
+                        <span class="active">About you</span>
+                        <span>About them</span>
+                        <span>Personality &amp; memories</span>
+                        <span>Style, photos &amp; budget</span>
+                    </div>
+                </div>
+                <div class="step-panel active" data-step="1">
+<!-- Section: Client Parameters -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="user" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Your Contact Details
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Your Full Name <span>*</span></label><input type="text" id="cust-name" required placeholder="John Doe"></div>
+                        <div class="form-group"><label>Email Address <span>*</span></label><input type="email" id="cust-email" required placeholder="john@example.com"></div>
+                        <div class="form-group"><label>Phone Number <span>*</span></label><input type="text" id="cust-phone" required placeholder="(555) 000-0000"></div>
+                        <div class="form-group">
+                            <label>Preferred Contact Method <span>*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item"><input type="radio" name="contact" id="c1" value="Email"><label for="c1">Email</label></div>
+                                <div class="radio-item"><input type="radio" name="contact" id="c2" value="Text/SMS"><label for="c2">Text/SMS</label></div>
+                                <div class="radio-item"><input type="radio" name="contact" id="c3" value="WhatsApp"><label for="c3">WhatsApp</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="step-nav"><button type="button" class="btn-next" onclick="wizardNext()">Next: About Them →</button></div>
+                </div>
+                <div class="step-panel" data-step="2">
+<!-- Section: Recipient Profile Matrix -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="heart" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> The Recipient Profile
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Recipient's Name <span>*</span></label><input type="text" id="gift-for" required placeholder="Who is this gift for?"></div>
+                        <div class="form-group"><label>Your Relationship to Them <span>*</span></label><input type="text" id="relationship" required placeholder="e.g., Spouse, Mother, Client, Best Friend"></div>
+                        <div class="form-group">
+                            <label>Recipient's Age Range <span>*</span></label>
+                            <select id="age-range" required>
+                                <option value="">Select age spectrum</option>
+                                <option value="Under 18">Under 18</option>
+                                <option value="18 - 25">18 - 25</option>
+                                <option value="26 - 35">26 - 35</option>
+                                <option value="36 - 50">36 - 50</option>
+                                <option value="51 - 65">51 - 65</option>
+                                <option value="66+">66+</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Celebrated Occasion <span>*</span></label><input type="text" id="occasion" required placeholder="e.g., 50th Birthday, Promotion, Wedding Anniversary"></div>
+                        <div class="form-group"><label>Target Delivery Date Needed <span>*</span></label><input type="date" id="needed-date" required></div>
+                    </div>
+                </section>
+
+                <div class="step-nav"><button type="button" class="btn-back" onclick="wizardBack()">← Back</button><button type="button" class="btn-next" onclick="wizardNext()">Next: Personality & Memories →</button></div>
+                </div>
+                <div class="step-panel" data-step="3">
+<!-- Section: Analytical Profiling Engine -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="sparkles" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Personality Insight Mapping
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;">
+                        <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-color);">List 3 words that instantly come to mind when thinking of them: <span>*</span></label>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                            <input type="text" id="w1" required placeholder="Word 1">
+                            <input type="text" id="w2" placeholder="Word 2 (optional)">
+                            <input type="text" id="w3" placeholder="Word 3 (optional)">
+                        </div>
+                    </div>
+                    <div class="form-group"><label>What do they enjoy doing in their free time?</label><textarea id="hobbies" placeholder="Describe their passions, hobbies, weekend projects, or sports..."></textarea></div>
+                    <div class="form-group"><label>Favorite Colors or Style Aesthetic:</label><input type="text" id="fav-colors" placeholder="e.g., Emerald green, minimalist earthy tones, vibrant pastels, rustic wooden textures"></div>
+                    <div class="form-group"><label>Favorite Shows, Movies, Books, Music, or Teams:</label><textarea id="fav-media" placeholder="List any specific fandoms, pop-culture items, literary classics, musical profiles, or sports franchises they love..."></textarea></div>
+                </section>
+<!-- Section: Memory Mapping Structure -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="scroll" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Shared Memories & Emotional Context
+                    </div>
+                    <div class="form-group"><label>Describe a favorite memory you share with this person:</label><textarea id="fav-memory" placeholder="Where were you? What happened? Why does it stand out as a highlight in your relationship?"></textarea></div>
+                    <div class="form-group"><label>What is a message or heartfelt wish you always want them to remember?</label><textarea id="wish-they-knew" placeholder="If you could distill your deepest thoughts about their worth and impact on your life, what would you say?"></textarea></div>
+                    <div class="form-group"><label>Do they have a meaningful nickname or term of endearment?</label><input type="text" id="nickname" placeholder="e.g., Chief, Bug, Mamma Bear"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Notable Dates to potentially feature (Birthdays, Anniversaries, Milestones):</label><input type="text" id="important-dates" placeholder="e.g., Wedding date: 10/12/2018, Graduation: May 2024"></div>
+                        <div class="form-group"><label>Are there other names or initials that should be integrated into the design?</label><input type="text" id="included-names" placeholder="e.g., Children's names, initials of family members, pet names"></div>
+                    </div>
+                </section>
+
+                <div class="step-nav"><button type="button" class="btn-back" onclick="wizardBack()">← Back</button><button type="button" class="btn-next" onclick="wizardNext()">Next: Style, Photos & Budget →</button></div>
+                </div>
+                <div class="step-panel" data-step="4">
+<!-- Section: Visual & Asset Frameworks -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="image" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Visual Reference Uploads
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Reference Images or Style Directives:</label>
+                        <input type="file" id="photo-upload" multiple accept="image/*">
+                        <div id="upload-status" style="font-size: 0.85rem; margin-top: 6px; color: var(--primary-color); font-weight: bold;"></div>
+                    </div>
+                </section>
+<!-- Section: Curation Metrics -->
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="sliders" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Design Curation Vectors
+                    </div>
+                    <div class="form-group" id="style-group" style="margin-bottom: 25px;">
+                        <label style="margin-bottom: 10px;">Which gift style alignment feels right for them? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item"><input type="checkbox" id="s1" value="Elegant & Sophisticated"><label for="s1">Elegant & Sophisticated</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="s2" value="Rustic, Warm & Cozy"><label for="s2">Rustic, Warm & Cozy</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="s3" value="Modern, Sleek & Clean"><label for="s3">Modern, Sleek & Clean</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="s4" value="Fun, Quirky & Vibrant"><label for="s4">Fun, Quirky & Vibrant</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="s5" value="Deeply Sentimental & Nostalgic"><label for="s5">Deeply Sentimental / Nostalgic</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="s6" value="Practical, Useful & Functional"><label for="s6">Practical & Functional</label></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" id="product-group" style="margin-bottom: 25px;">
+                        <label style="margin-bottom: 10px;">Are there particular product types you are interested in exploring?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item"><input type="checkbox" id="p2" value="Personalized Glassware or Drinkware"><label for="p2">Custom Glass/Drinkware</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="p3" value="Apparel"><label for="p3">Apparel</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="p4" value="Curated Gift Boxes / Multi-Item Set"><label for="p4">Curated Gift Box / Basket Sets</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="p6" value="Open to any creative media suggestions"><label for="p6">Open to Any Creative Mediums</label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label>Would you like to include QR code experience to custom media (e.g., a voice note, video montage, song or custom message)? <span>*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item"><input type="radio" name="qr" id="qr1" value="Yes, absolutely!"><label for="qr1">Yes, absolutely!</label></div>
+                            <div class="radio-item"><input type="radio" name="qr" id="qr2" value="No, keep it physical"><label for="qr2">No, keep it physical</label></div>
+                            <div class="radio-item"><input type="radio" name="qr" id="qr3" value="Maybe, I want more details"><label for="qr3">Maybe / Tell me more</label></div>
+                        </div>
+                    </div>
+                </section>
+<section>
+                    <div class="section-title">
+                        <i data-lucide="banknote" style="color: var(--primary-color); width: 18px; height: 18px; stroke-width: 2;"></i> Budget
+                    </div>
+                    <div class="form-group">
+                        <label>What's your gift budget?</label>
+                        <div class="radio-group">
+                            <div class="radio-item"><input type="radio" name="budget" id="b1" value="Under $30"><label for="b1">Under $30</label></div>
+                            <div class="radio-item"><input type="radio" name="budget" id="b2" value="$30 - $50"><label for="b2">$30 - $50</label></div>
+                            <div class="radio-item"><input type="radio" name="budget" id="b3" value="$50 - $75"><label for="b3">$50 - $75</label></div>
+                            <div class="radio-item"><input type="radio" name="budget" id="b4" value="$75 - $100"><label for="b4">$75 - $100</label></div>
+                            <div class="radio-item"><input type="radio" name="budget" id="b5" value="$100 - $150"><label for="b5">$100 - $150</label></div>
+                            <div class="radio-item"><input type="radio" name="budget" id="b6" value="$150+"><label for="b6">$150+</label></div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="step-nav"><button type="button" class="btn-back" onclick="wizardBack()">← Back</button></div>
+                </div>
+
+
+                <button type="submit" class="submit-btn">Submit Gift Plan</button>
+                <div id="form-message" style="margin-top: 15px; font-weight: bold; font-size: 0.95rem; display: none;"></div>
+            </form>
+
+            <!-- View 1: Sidebar Information -->
+            <div class="sidebar">
+                <div class="side-card">
+                    <h3>Your Gift Planning Session Includes:</h3>
+                    <ul style="padding: 0; margin: 0; list-style: none;">
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="users" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Personalized gift consultation
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="package-open" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Product recommendation
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="brush" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Custom design concept
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 0; font-size: 0.9rem;">
+                            <i data-lucide="pen-tool" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Meaningful wording suggestions
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="side-card fee-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 25px 20px;">
+                    <i data-lucide="ticket-percent" style="color: var(--primary-color); width: 24px; height: 24px; stroke-width: 1.5; margin-bottom: 2px;"></i>
+                    <p style="font-size: 1.1rem; font-weight: 600; margin: 0; color: var(--text-color);">*Gift Planning Fee: $20</p>
+                    <p style="font-size: 0.75rem; font-weight: normal; opacity: 0.8; margin: 0; line-height: 1.3; max-width: 90%;">*Non-refundable and applied toward your final purchase if you place an order.</p>
+                </div>
+                
+                <div class="side-card quote-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 30px 20px;">
+                    <i data-lucide="heart-handshake" style="color: var(--primary-color); width: 26px; height: 26px; stroke-width: 1.5;"></i>
+                    <p style="font-family: 'DM Serif Display', serif; font-size: 1.1rem; font-weight: 700; line-height: 1.1; color: var(--text-color); margin: 0;">My goal isn't just to create a gift.</p>
+                    <p style="font-family: 'Brush Script MT', 'Brush Script Std', 'Bickham Script Pro', cursive; font-size: 1.5rem; line-height: 0.95; color: var(--primary-color); margin: 0; padding-top: 4px;">My goal is to create a moment they'll never forget.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 2: BULK & CORPORATE PLANNING PORTAL -->
+    <div id="view-bulk" style="display: none; width: 100%;">
+        <div class="container">
+            <form class="main-form" id="bulkGiftForm">
+                <div class="form-header">
+                    <h1>Bulk & Corporate Gift Planning Form</h1>
+                    <p>Streamline your team appreciation, event handouts, or large group distributions seamlessly.</p>
+                </div>
+
+                <!-- Step-by-step progress (Corporate form) -->
+                <div class="wizard-progress" id="bulk-wizard-progress">
+                    <div class="wizard-meta"><span id="bulk-wizard-label">Step 1 of 4</span></div>
+                    <div class="progress-track"><div class="progress-fill" id="bulk-wizard-fill"></div></div>
+                    <div class="wizard-steps" id="bulk-wizard-steps">
+                        <span class="active">Company &amp; contact</span>
+                        <span>Logistics</span>
+                        <span>Brand assets &amp; tier</span>
+                        <span>Branding context</span>
+                    </div>
+                </div>
+                <div class="step-panel active" data-step="1">
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="building-2" style="color: var(--primary-color); width: 18px; height: 18px;"></i> Company & Contact Details
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Company / Organization Name</label><input type="text" id="bulk-company" placeholder="Enter company name"></div>
+                        <div class="form-group"><label>Contact Person Name <span>*</span></label><input type="text" id="bulk-contact" required placeholder="Your full name"></div>
+                        <div class="form-group"><label>Email Address <span>*</span></label><input type="email" id="bulk-email" required placeholder="name@company.com"></div>
+                        <div class="form-group"><label>Phone Number <span>*</span></label><input type="text" id="bulk-phone" required placeholder="Your phone number"></div>
+                    </div>
+                </section>
+                <div class="step-nav"><button type="button" class="btn-next" onclick="bulkWizardNext()">Next: Logistics &amp; Volumetrics →</button></div>
+                </div>
+                <div class="step-panel" data-step="2">
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="truck" style="color: var(--primary-color); width: 18px; height: 18px;"></i> Logistics & Volumetrics
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Estimated Total Quantity <span>*</span></label>
+                            <select id="bulk-quantity" required>
+                                <option value="">Select quantity tier</option>
+                                <option value="10-25">10 - 25 gifts</option>
+                                <option value="26-50">26 - 50 gifts</option>
+                                <option value="51-100">51 - 100 gifts</option>
+                                <option value="101+">101+ gifts (Large Distribution)</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Target Delivery Date <span>*</span></label><input type="date" id="bulk-deadline" required></div>
+                        <div class="form-group">
+                            <label>Shipping / Distribution Style</label>
+                            <select id="bulk-shipping">
+                                <option value="">Choose a shipping style…</option>
+                                <option value="single-location">Bulk single shipment to one physical location</option>
+                                <option value="individual-addresses">Individual drop-shipments directly to separate homes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Per-Gift Budget Bracket</label>
+                            <select id="bulk-budget">
+                                <option value="">Choose a budget bracket…</option>
+                                <option value="Under $30">Under $30 per gift</option>
+                                <option value="$30 - $60">$30 - $60 per gift</option>
+                                <option value="$60 - $100">$60 - $100 per gift</option>
+                                <option value="$100+">$100+ premium executive gifts</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                <div class="step-nav"><button type="button" class="btn-back" onclick="bulkWizardBack()">← Back</button><button type="button" class="btn-next" onclick="bulkWizardNext()">Next: Brand Assets &amp; Tier →</button></div>
+                </div>
+                <div class="step-panel" data-step="3">
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="palette" style="color: var(--primary-color); width: 18px; height: 18px;"></i> Brand Assets & Identity
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Upload Corporate Logo(s) (Vector, PNG, or JPEG):</label>
+                            <input type="file" id="bulk-logo-upload" accept="image/*" multiple>
+                            <div id="bulk-upload-status" style="font-size: 0.85rem; margin-top: 6px; color: var(--primary-color); font-weight: bold;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Colors / Hex Codes:</label>
+                            <input type="text" id="bulk-brand-colors" placeholder="e.g., #003366, Navy Blue, Gold">
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="fingerprint" style="color: var(--primary-color); width: 18px; height: 18px;"></i> Personalization Tier <span>*</span>
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-bottom: 12px;">What level of customization is required across the order?</label>
+                        <div class="radio-group" style="flex-direction: column; gap: 14px;">
+                            <div class="radio-item" style="align-items: flex-start;">
+                                <input type="radio" name="bulk-personalization" id="p-tier1" value="Identical Branding" required style="margin-top: 3px;">
+                                <label for="p-tier1" style="font-weight: normal; cursor: pointer;">
+                                    <strong>Tier 1: Identical Bulk Branding (Base Price)</strong><br>
+                                    <span style="opacity: 0.8; font-size: 0.85rem;">Every item gets the same logo/design template. Best for event handouts or brand awareness.</span>
+                                </label>
+                            </div>
+                            <div class="radio-item" style="align-items: flex-start;">
+                                <input type="radio" name="bulk-personalization" id="p-tier2" value="Name Personalization" required style="margin-top: 3px;">
+                                <label for="p-tier2" style="font-weight: normal; cursor: pointer;">
+                                    <strong>Tier 2: Team Personalization (+$5 - $10 per item)</strong><br>
+                                    <span style="opacity: 0.8; font-size: 0.85rem;">Same core company design, but each item is individually personalized with a name or initials.</span>
+                                </label>
+                            </div>
+                            <div class="radio-item" style="align-items: flex-start;">
+                                <input type="radio" name="bulk-personalization" id="p-tier3" value="Unique Customization" required style="margin-top: 3px;">
+                                <label for="p-tier3" style="font-weight: normal; cursor: pointer;">
+                                    <strong>Tier 3: Bespoke Personalization (+$15 - $25+ per item)</strong><br>
+                                    <span style="opacity: 0.8; font-size: 0.85rem;">Each item features a unique design asset, specific personal quote, or complex individual details tailored to the specific recipient.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="step-nav"><button type="button" class="btn-back" onclick="bulkWizardBack()">← Back</button><button type="button" class="btn-next" onclick="bulkWizardNext()">Next: Branding Context →</button></div>
+                </div>
+                <div class="step-panel" data-step="4">
+                <section>
+                    <div class="section-title">
+                        <i data-lucide="briefcase" style="color: var(--primary-color); width: 18px; height: 18px;"></i> Branding Context
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label>What is the occasion or purpose for these gifts?</label>
+                        <textarea id="bulk-occasion" placeholder="e.g., Annual holiday gift, project milestone completion, client onboarding..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Custom Branding & Logo Requirements Notes</label>
+                        <textarea id="bulk-branding" placeholder="Would you like specific brand color assets matched, or custom printed insert cards?"></textarea>
+                    </div>
+                </section>
+                <div class="step-nav"><button type="button" class="btn-back" onclick="bulkWizardBack()">← Back</button></div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="bulkSubmitBtn">Submit Bulk Request</button>
+                <div id="bulk-form-message" style="margin-top: 15px; font-weight: bold; font-size: 0.95rem; display: none;"></div>
+            </form>
+
+            <!-- View 2: Sidebar Information -->
+            <div class="sidebar">
+                <div class="side-card">
+                    <h3>Corporate Logistics Include:</h3>
+                    <ul style="padding: 0; margin: 0; list-style: none;">
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="shield-check" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Commercial procurement review
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="file-digit" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Volume pricing tiering
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem;">
+                            <i data-lucide="layers" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Branding asset compatibility
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 0; font-size: 0.9rem;">
+                            <i data-lucide="map-pin" style="color: var(--primary-color); width: 16px; height: 16px; stroke-width: 2; flex-shrink: 0;"></i> Multi-destination strategy
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="side-card fee-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 25px 20px;">
+                    <i data-lucide="lock" style="color: var(--primary-color); width: 24px; height: 24px; stroke-width: 1.5; margin-bottom: 2px;"></i>
+                    <p style="font-size: 1.1rem; font-weight: 600; margin: 0; color: var(--text-color);">*Design Deposit: $50</p>
+                    <p style="font-size: 0.75rem; font-weight: normal; opacity: 0.8; margin: 0; line-height: 1.3; max-width: 90%;">
+                        *Required to initiate customized brand layouts, vector rendering, and inventory holds. Applied directly to total contract value upon production sign-off.
+                    </p>
+                </div>
+                
+                <div class="side-card quote-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 30px 20px;">
+                    <i data-lucide="sparkles" style="color: var(--primary-color); width: 26px; height: 26px; stroke-width: 1.5;"></i>
+                    <p style="font-family: 'DM Serif Display', serif; font-size: 1.0rem; font-weight: 700; line-height: 1.2; color: var(--text-color); margin: 0;">Flawless Execution.</p>
+                    <p style="font-size: 0.8rem; font-weight: normal; opacity: 0.9; margin: 0; line-height: 1.3;">We blend your corporate brand standards with intentional craftsmanship to create lasting executive impact.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SDK Database Integrations -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+// 1. Firebase Initialization
+const firebaseConfig = {
+    apiKey: "AIzaSyAFh17kO3JE1CyuH9XrqWu19RvadSEFP20",
+    authDomain: "gift-planning-form.firebaseapp.com",
+    projectId: "gift-planning-form",
+    storageBucket: "gift-planning-form.firebasestorage.app",
+    messagingSenderId: "777169863477",
+    appId: "1:777169863477:web:2fd112b16b0982dc7c427c",
+    measurementId: "G-6XL7M7Z692"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// 2. Third-Party Web Integration Routing Setup
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dpsmcu07f/image/upload";
+const CLOUDINARY_PRESET = "gift_planning";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrk5yPmtqPmYs_HjBPnOJMJKg2Wnq90Z5WZeVUiEDeBcUglv-BBoBmK_CTnsA0F9KU1w/exec";
+const PUSHOVER_USER_KEY = "ueb3ouifx46g56n7by3rfh198nmagb";   
+const PUSHOVER_APP_TOKEN = "az24xk23yyn69ej8v363ke5u92v834"; 
+
+let uploadedImageUrls = [];
+let uploadedCorporateLogoUrl = "";
+let uploadedCorporateLogoUrls = []; 
+
+// View Switcher Engine
+function switchFormView(targetView) {
+    const viewInd = document.getElementById('view-individual');
+    const viewBulk = document.getElementById('view-bulk');
+    const tabInd = document.getElementById('tab-individual');
+    const tabBulk = document.getElementById('tab-bulk');
+
+    if (targetView === 'individual') {
+        viewInd.style.display = "block";
+        viewBulk.style.display = "none";
+        tabInd.classList.add('active');
+        tabBulk.classList.remove('active');
+    } else {
+        viewInd.style.display = "none";
+        viewBulk.style.display = "block";
+        tabBulk.classList.add('active');
+        tabInd.classList.remove('active');
+    }
+    lucide.createIcons();
+}
+
+// Cloudinary Reference Upload Handler (Single Gifts)
+document.getElementById('photo-upload').addEventListener('change', async (e) => {
+    const files = e.target.files;
+    const statusDiv = document.getElementById('upload-status');
+    uploadedImageUrls = []; 
+
+    if (files.length === 0) return;
+    statusDiv.innerText = "Uploading reference photos...";
+
+    for (let file of files) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_PRESET);
+
+        try {
+            let response = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData });
+            let data = await response.json();
+            if (data.secure_url) {
+                uploadedImageUrls.push(data.secure_url);
+            }
+        } catch (err) {
+            console.error("Cloudinary Upload Error:", err);
+            statusDiv.innerText = "Error uploading one or more photos.";
+            return;
+        }
+    }
+    statusDiv.innerText = `✨ ${uploadedImageUrls.length} photo(s) uploaded successfully!`;
+});
+
+// Cloudinary Corporate Logo Upload Handler (Bulk Orders) — multi-file
+const bulkLogoInput = document.getElementById('bulk-logo-upload');
+if (bulkLogoInput) {
+    bulkLogoInput.addEventListener('change', async (e) => {
+        const files = e.target.files;
+        const statusDiv = document.getElementById('bulk-upload-status');
+        uploadedCorporateLogoUrl = "";
+        uploadedCorporateLogoUrls = [];
+
+        if (files.length === 0) return;
+        if (statusDiv) statusDiv.innerText = "Uploading corporate logo(s)...";
+
+        for (let file of files) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+
+            try {
+                let response = await fetch(CLOUDINARY_URL, { method: 'POST', body: formData });
+                let data = await response.json();
+                if (data.secure_url) {
+                    uploadedCorporateLogoUrls.push(data.secure_url);
+                }
+            } catch (err) {
+                console.error("Cloudinary Corporate Logo Upload Error:", err);
+                if (statusDiv) statusDiv.innerText = "Error uploading one or more logos.";
+                return;
+            }
+        }
+        uploadedCorporateLogoUrl = uploadedCorporateLogoUrls[0] || "";
+        if (statusDiv) statusDiv.innerText = `✨ ${uploadedCorporateLogoUrls.length} logo(s) uploaded successfully!`;
+    });
+}
+
+// Transactional Alert Notification Dispatcher
+function triggerPushoverAlert(title, messageContent) {
+    const url = "https://api.pushover.net/1/messages.json";
+    const payload = new URLSearchParams();
+    payload.append("token", PUSHOVER_APP_TOKEN);
+    payload.append("user", PUSHOVER_USER_KEY);
+    payload.append("title", title);
+    payload.append("message", messageContent);
+    payload.append("sound", "cashregister");
+
+    fetch(url, {
+        method: "POST",
+        body: payload,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    })
+    .then(response => response.json())
+    .then(data => console.log("Pushover notification dispatched:", data))
+    .catch(err => console.error("Pushover notification failed:", err));
+}
+
+// Spreadsheet Processing Intermediary Async Connector
+function sendToAppsScript(payload) {
+    fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    }).catch(err => console.error("Apps Script error:", err));
+}
+
+// Dynamic System Feedback Box Render Utility
+function showMessage(elementId, message, success = true) {
+    const box = document.getElementById(elementId);
+    box.style.display = "block";
+    box.style.padding = "12px";
+    box.style.borderRadius = "6px";
+    box.style.marginTop = "15px";
+
+    if (success) {
+        box.style.background = "#e8f5e9";
+        box.style.color = "#2e7d32";
+        box.style.border = "1px solid #81c784";
+    } else {
+        box.style.background = "#ffebee";
+        box.style.color = "#c62828";
+        box.style.border = "1px solid #ef9a9a";
+    }
+    box.innerHTML = message;
+}
+
+// Form Submission Engine: Bulk Corporate Requests
+document.getElementById('bulkGiftForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('bulkSubmitBtn');
+    const msgDiv = document.getElementById('bulk-form-message');
+    
+    submitBtn.innerText = "Processing Corporate Request...";
+    submitBtn.disabled = true;
+
+    const getRadioValue = (name) => {
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? checked.value : '';
+    };
+
+    const bulkPayload = {
+        timestamp: new Date().toISOString(),
+        companyName: document.getElementById('bulk-company').value,
+        contactName: document.getElementById('bulk-contact').value,
+        email: document.getElementById('bulk-email').value,
+        phone: document.getElementById('bulk-phone').value,
+        quantityBracket: document.getElementById('bulk-quantity').value,
+        deadline: document.getElementById('bulk-deadline').value,
+        shippingStyle: document.getElementById('bulk-shipping').value,
+        budgetTier: document.getElementById('bulk-budget').value,
+        occasionContext: document.getElementById('bulk-occasion').value,
+        brandingDetails: document.getElementById('bulk-branding').value,
+        corporateLogoUrl: uploadedCorporateLogoUrl,
+        corporateLogoUrls: uploadedCorporateLogoUrls,
+        brandColors: document.getElementById('bulk-brand-colors').value,
+        personalizationTier: getRadioValue('bulk-personalization'),
+        status: "New Corporate Lead"
+    };
+
+    db.collection("bulk_submissions").add(bulkPayload)
+        .then(() => {
+            sendToAppsScript(bulkPayload);
+            const company = document.getElementById('bulk-company').value || "No Company Name";
+            const contact = document.getElementById('bulk-contact').value;
+            const pTier = getRadioValue('bulk-personalization') || "Tier 1";
+            
+            triggerPushoverAlert(
+                "💼 New Corporate Request!",
+                `Company: ${company}\nContact: ${contact}\nPersonalization Tier: ${pTier}\nReview lead details immediately.`
+            );
+
+            showMessage('bulk-form-message', "💼 <strong>Success! Your bulk corporate request has been saved.</strong><br><span style='font-weight: normal; font-size: 0.85rem; display: block; margin-top: 5px;'>Our procurement review takes up to **48 business hours**. We will email you a proposal breakdown alongside an invoice request for your non-refundable $50 design deposit so we can lock down your inventory and start vector mockups.</span>", true);
+            
+            e.target.reset();
+            const bulkStatusDiv = document.getElementById('bulk-upload-status');
+            if (bulkStatusDiv) bulkStatusDiv.innerText = "";
+            uploadedCorporateLogoUrl = "";
+            uploadedCorporateLogoUrls = [];
+            
+            submitBtn.innerText = "Submit Bulk Request";
+            submitBtn.disabled = false;
+            
+            setTimeout(() => { msgDiv.style.display = "none"; }, 15000);
+        })
+        .catch((error) => {
+            showMessage('bulk-form-message', `<strong>Submission Failed</strong><br>${error.code}<br>${error.message}`, false);
+            console.error("FULL FIREBASE ERROR:", error);
+        
+            submitBtn.innerText = "Submit Bulk Request";
+            submitBtn.disabled = false;
+        });
+});
+
+// Form Submission Engine: Single Custom Gifts
+document.getElementById('giftForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const submitBtn = e.target.querySelector('.submit-btn');
+    submitBtn.innerText = "Saving Submission...";
+    submitBtn.disabled = true;
+
+    const getCheckedValues = (containerId) => {
+        const boxes = document.querySelectorAll(`${containerId} input[type="checkbox"]:checked`);
+        let values = [];
+        boxes.forEach(box => values.push(box.value));
+        return values;
+    };
+
+    const getRadioValue = (name) => {
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? checked.value : '';
+    };
+
+    const submissionPayload = {
+        timestamp: new Date().toISOString(),
+        customerName: document.getElementById('cust-name').value,
+        customerEmail: document.getElementById('cust-email').value,
+        customerPhone: document.getElementById('cust-phone').value,
+        preferredContact: getRadioValue('contact'),
+        recipientName: document.getElementById('gift-for').value,
+        recipientRelationship: document.getElementById('relationship').value,
+        recipientAgeRange: document.getElementById('age-range').value,
+        celebratedOccasion: document.getElementById('occasion').value,
+        deliveryDateNeeded: document.getElementById('needed-date').value,
+        descriptiveThreeWords: [
+            document.getElementById('w1').value,
+            document.getElementById('w2').value,
+            document.getElementById('w3').value
+        ].filter(Boolean).join(', '),
+        hobbiesAndInterests: document.getElementById('hobbies').value,
+        favoriteColors: document.getElementById('fav-colors').value,
+        favoriteMediaAndActivities: document.getElementById('fav-media').value,
+        favoriteMemory: document.getElementById('fav-memory').value,
+        heartfeltWishMessage: document.getElementById('wish-they-knew').value,
+        recipientNickname: document.getElementById('nickname').value,
+        notableImportantDates: document.getElementById('important-dates').value,
+        specificNamesToInclude: document.getElementById('included-names').value,
+        cloudinaryPhotoLinks: uploadedImageUrls,
+        chosenGiftStyles: getCheckedValues('#style-group'),
+        productPreferences: getCheckedValues('#product-group'),
+        wantsQrCodeMedia: getRadioValue('qr'),
+        allottedBudget: getRadioValue('budget')
+    };
+
+    db.collection("gift_submissions").add(submissionPayload)
+        .then(() => {
+            sendToAppsScript(submissionPayload);
+            const name = document.getElementById('cust-name').value;
+            const budget = document.querySelector('input[name="budget"]:checked')?.value || "Unset";
+            
+            triggerPushoverAlert(
+                "🎁 New Single Gift Plan!",
+                `From: ${name}\nBudget Range: ${budget}\nCheck Firestore dashboard for details.`
+            );
+
+            showMessage('form-message', "✨ <strong>Success! Your gift plan has been submitted.</strong><br><span style='font-weight:normal;font-size:.85rem;'>Please check your inbox. You will receive your custom quote and invoice request within 48 business hours.</span>", true);
+            
+            e.target.reset();
+            document.getElementById('upload-status').innerText = "";
+            uploadedImageUrls = [];
+            submitBtn.innerText = "Submit Gift Plan";
+            submitBtn.disabled = false;
+            
+            setTimeout(() => { document.getElementById('form-message').style.display = "none"; }, 15000);
+        })
+        .catch((error) => {
+            showMessage('form-message', `<strong>Submission Failed</strong><br>${error.code}<br>${error.message}`, false);
+            console.error("FULL FIREBASE ERROR:", error);
+        
+            submitBtn.innerText = "Submit Gift Plan";
+            submitBtn.disabled = false;
+        });
+});
+
+
+// Step-by-step wizard (Individual form only) — no changes to any submission,
+// upload, or external-service code. Only shows/hides the existing sections.
+var currentStep = 1;
+var TOTAL_STEPS = 4;
+function showStep(n) {
+    currentStep = Math.max(1, Math.min(TOTAL_STEPS, n));
+    var panels = document.querySelectorAll('#giftForm .step-panel');
+    panels.forEach(function(p, i) { p.classList.toggle('active', i === currentStep - 1); });
+    var fill = document.getElementById('wizard-fill');
+    if (fill) fill.style.width = (currentStep / TOTAL_STEPS * 100) + '%';
+    var label = document.getElementById('wizard-label');
+    if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+    var steps = document.querySelectorAll('#wizard-steps span');
+    steps.forEach(function(s, i) {
+        s.classList.toggle('active', i === currentStep - 1);
+        s.classList.toggle('done', i < currentStep - 1);
+    });
+    var submitBtn = document.querySelector('#giftForm .submit-btn');
+    if (submitBtn) submitBtn.style.display = (currentStep === TOTAL_STEPS) ? '' : 'none';
+    var head = document.querySelector('#giftForm .form-header');
+    if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function wizardNext() {
+    var panel = document.querySelector('#giftForm .step-panel.active');
+    if (panel) {
+        var req = panel.querySelectorAll('[required]');
+        for (var i = 0; i < req.length; i++) {
+            if (!req[i].checkValidity()) { req[i].reportValidity(); return; }
+        }
+    }
+    showStep(currentStep + 1);
+}
+function wizardBack() { showStep(currentStep - 1); }
+// Safety check on the final submit: if any required field in an earlier step
+// is empty, jump to that step instead of submitting. Never blocks a valid form.
+var wizardSubmitBtn = document.querySelector('#giftForm .submit-btn');
+if (wizardSubmitBtn) {
+    wizardSubmitBtn.addEventListener('click', function(ev) {
+        var panels = document.querySelectorAll('#giftForm .step-panel');
+        for (var i = 0; i < panels.length; i++) {
+            var req = panels[i].querySelectorAll('[required]');
+            for (var j = 0; j < req.length; j++) {
+                if (!req[j].checkValidity()) {
+                    ev.preventDefault();
+                    showStep(i + 1);
+                    req[j].reportValidity();
+                    return;
+                }
+            }
+        }
+    });
+}
+// Delivery dates can't be in the past (Individual + Bulk forms)
+(function(){
+  var today = new Date();
+  var iso = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+  ['needed-date','bulk-deadline'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.min = iso;
+  });
+})();
+showStep(1);
+
+// Corporate form step-by-step wizard (mirrors the Individual wizard).
+var bulkCurrentStep = 1;
+var BULK_TOTAL_STEPS = 4;
+function bulkShowStep(n) {
+    bulkCurrentStep = Math.max(1, Math.min(BULK_TOTAL_STEPS, n));
+    var panels = document.querySelectorAll('#bulkGiftForm .step-panel');
+    panels.forEach(function(p, i) { p.classList.toggle('active', i === bulkCurrentStep - 1); });
+    var fill = document.getElementById('bulk-wizard-fill');
+    if (fill) fill.style.width = (bulkCurrentStep / BULK_TOTAL_STEPS * 100) + '%';
+    var label = document.getElementById('bulk-wizard-label');
+    if (label) label.textContent = 'Step ' + bulkCurrentStep + ' of ' + BULK_TOTAL_STEPS;
+    var steps = document.querySelectorAll('#bulk-wizard-steps span');
+    steps.forEach(function(s, i) {
+        s.classList.toggle('active', i === bulkCurrentStep - 1);
+        s.classList.toggle('done', i < bulkCurrentStep - 1);
+    });
+    var submitBtn = document.querySelector('#bulkGiftForm .submit-btn');
+    if (submitBtn) submitBtn.style.display = (bulkCurrentStep === BULK_TOTAL_STEPS) ? '' : 'none';
+    var head = document.querySelector('#bulkGiftForm .form-header');
+    if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function bulkWizardNext() {
+    var panel = document.querySelector('#bulkGiftForm .step-panel.active');
+    if (panel) {
+        var req = panel.querySelectorAll('[required]');
+        for (var i = 0; i < req.length; i++) {
+            if (!req[i].checkValidity()) { req[i].reportValidity(); return; }
+        }
+    }
+    bulkShowStep(bulkCurrentStep + 1);
+}
+function bulkWizardBack() { bulkShowStep(bulkCurrentStep - 1); }
+// Safety check on the final submit: if any required field in an earlier step
+// is empty, jump to that step instead of submitting. Never blocks a valid form.
+var bulkWizardSubmitBtn = document.querySelector('#bulkGiftForm .submit-btn');
+if (bulkWizardSubmitBtn) {
+    bulkWizardSubmitBtn.addEventListener('click', function(ev) {
+        var panels = document.querySelectorAll('#bulkGiftForm .step-panel');
+        for (var i = 0; i < panels.length; i++) {
+            var req = panels[i].querySelectorAll('[required]');
+            for (var j = 0; j < req.length; j++) {
+                if (!req[j].checkValidity()) {
+                    ev.preventDefault();
+                    bulkShowStep(i + 1);
+                    req[j].reportValidity();
+                    return;
+                }
+            }
+        }
+    });
+}
+bulkShowStep(1);
+
+// Initialize Vector Icon Mapping Layer
+lucide.createIcons();
+</script>
+</body>
+</html>

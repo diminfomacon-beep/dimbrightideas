@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Custom Catalog Item</title>
+    <style>
+        :root {
+            --primary: #395763;
+            --secondary: #191970;
+            --accent: #2F6B64;
+            --bg-light: #CAE4DB;
+        }
+        body { 
+            font-family: sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: transparent; 
+        }
+        .product-card {
+            background: transparent;
+            padding: 0px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+        .label-text { font-size: 11px; color: #000; font-weight: bold; margin-top: 2px; }
+        
+        input[type="text"], input[type="file"], select { 
+            padding: 8px; border-radius: 10px; border: 1px solid #ddd; font-size: 13px; outline: none; width: 100%; box-sizing: border-box; 
+        }
+        
+        /* Error Alert Styling */
+        .error-text {
+            color: #dc3545;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: -4px;
+            display: none;
+        }
+        input.input-error {
+            border-color: #dc3545 !important;
+            background-color: #fff8f8;
+        }
+
+        .button-row { display: flex; gap: 10px; margin-top: 12px; }
+        /* Narrow card (phone, 2-across grid): stack the two buttons so they stay tappable */
+        @media (max-width: 220px) {
+            .button-row { flex-direction: column; }
+        }
+        .action-btn { 
+            flex: 1; padding: 12px; font-weight: bold; border-radius: 10px; border: none; cursor: pointer; transition: 0.2s; color: white; text-align: center; font-size: 13px;
+        }
+        .btn-cart { background-color: var(--accent); }
+        .btn-bundle { background-color: var(--secondary); }
+        
+        .toggle-container { display: flex; gap: 8px; margin-top: 2px; }
+        .toggle-btn { flex: 1; padding: 6px; font-size: 11px; background-color: var(--bg-light); border: 1px solid #b9d4cb; border-radius: 8px; cursor: pointer; }
+        .status { font-size: 11px; font-weight: bold; margin-top: 4px; text-align: center; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="product-card">
+    <div class="input-group">
+        <label class="label-text">Design Code (Optional):</label>
+        <input type="text" id="design-input" placeholder="e.g., FD-24" style="text-transform: uppercase;">
+        <div id="design-error" class="error-text">⚠️ Invalid Format! Use AA-00 (e.g., FD-24)</div>
+
+        <div class="toggle-container">
+            <button type="button" class="toggle-btn" onclick="toggleSection('note-wrap')">Add Note</button>
+            <button type="button" class="toggle-btn" onclick="toggleSection('upload-wrap')">Upload Photo</button>
+        </div>
+
+        <div id="note-wrap" class="hidden">
+            <span class="label-text">Custom Text Notes:</span>
+            <input type="text" id="msg-input" maxlength="200" placeholder="Type additions or custom phrases...">
+        </div>
+
+        <div id="upload-wrap" class="hidden">
+            <span class="label-text">Upload Custom Photo/Artwork:</span>
+            <input type="file" id="file-input" accept="image/*" onchange="uploadImage()">
+            <div id="upload-status" class="status"></div>
+        </div>
+        
+        <div id="dynamic-dropdowns-container"></div>
+    </div>
+
+    <div class="button-row">
+        <button id="cart-btn" class="action-btn btn-cart" onclick="addItem('cart')">Add to Cart</button>
+        <button id="bundle-btn" class="action-btn btn-bundle" onclick="addItem('bundle')">Add to Bundle</button>
+    </div>
+</div>
+
+<script>
+    const CLOUD_NAME = "dpsmcu07f"; 
+    const UPLOAD_PRESET = "dim_image_uploads"; 
+    let uploadedImageUrl = "";
+
+    const params = new URLSearchParams(window.location.search);
+    const baseName = params.get('name') ? params.get('name').replace(/_/g, ' ') : "Custom Product";
+    const basePrice = parseFloat(params.get('price')) || 0.00;
+    const rawVars = params.get('vars') || "";
+
+    const dropdownContainer = document.getElementById('dynamic-dropdowns-container');
+    
+    if (rawVars.trim() !== "") {
+        const groups = rawVars.split('|||');
+        groups.forEach((group, index) => {
+            if (!group.trim()) return;
+            let labelText = "Option:";
+            let optionsString = group;
+            
+            if (group.includes(':')) {
+                const parts = group.split(':');
+                labelText = parts[0].trim();
+                optionsString = parts[1];
+            }
+            
+            const items = optionsString.split(',');
+            if (items.length > 0) {
+                const lbl = document.createElement('label');
+                lbl.className = "label-text";
+                lbl.textContent = labelText + ":";
+                
+                const sel = document.createElement('select');
+                sel.className = "dynamic-option-menu";
+                sel.dataset.groupName = labelText;
+                
+                items.forEach(item => {
+                    if (!item.trim()) return;
+                    let valName = item.trim();
+                    let priceModifier = 0;
+                    
+                    if (item.includes('|')) {
+                        const itemParts = item.split('|');
+                        valName = itemParts[0].trim();
+                        priceModifier = parseFloat(itemParts[1]) || 0;
+                    }
+                    
+                    const opt = document.createElement('option');
+                    opt.value = valName;
+                    opt.dataset.price = priceModifier;
+                    opt.textContent = valName + (priceModifier > 0 ? ` (+$${priceModifier.toFixed(2)})` : '');
+                    sel.appendChild(opt);
+                });
+                
+                dropdownContainer.appendChild(lbl);
+                dropdownContainer.appendChild(sel);
+            }
+        });
+    }
+
+    function toggleSection(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    }
+
+    async function uploadImage() {
+        const fileInput = document.getElementById('file-input');
+        const statusEl = document.getElementById('upload-status');
+        if (!fileInput.files.length) return;
+
+        statusEl.style.color = "orange";
+        statusEl.textContent = "Uploading asset...";
+
+        const fd = new FormData();
+        fd.append('file', fileInput.files[0]);
+        fd.append('upload_preset', UPLOAD_PRESET);
+
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                method: 'POST',
+                body: fd
+            });
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            uploadedImageUrl = data.secure_url;
+            statusEl.style.color = "green";
+            statusEl.textContent = "Upload Success!";
+        } catch (e) {
+            statusEl.style.color = "red";
+            statusEl.textContent = "Upload failed.";
+            fileInput.value = "";
+        }
+    }
+
+    function addItem(targetPool) {
+        const designInput = document.getElementById('design-input');
+        const designError = document.getElementById('design-error');
+        const dCode = designInput.value.trim().toUpperCase();
+
+        // Reset previous validation styles
+        designInput.classList.remove('input-error');
+        designError.style.display = "none";
+
+        // --- VALIDATION LOGIC FOR AA-00 (OPTIONAL / CAN BE BLANK) ---
+        if (dCode !== "") {
+            // Regex details: 2 letters, 1 dash, 2 digits
+            const formatRegex = /^[A-Z]{2}-\d{2}$/; 
+            
+            if (!formatRegex.test(dCode)) {
+                designInput.classList.add('input-error');
+                designError.style.display = "block";
+                designInput.focus();
+                return; // Stop function execution immediately
+            }
+        }
+
+        let finalMessage = "";
+        if(dCode) finalMessage += `Design: ${dCode}`;
+
+        const textNote = document.getElementById('msg-input').value.trim();
+        if(textNote) finalMessage += (finalMessage ? ` | Note: ${textNote}` : `Note: ${textNote}`);
+
+        if(uploadedImageUrl) {
+            finalMessage += (finalMessage ? ` | Pic: ${uploadedImageUrl}` : `Pic: ${uploadedImageUrl}`);
+        }
+
+        let totalAddonCost = 0;
+        const optionMenus = document.querySelectorAll('.dynamic-option-menu');
+        
+        optionMenus.forEach(menu => {
+            const groupName = menu.dataset.groupName;
+            const selectedOpt = menu.options[menu.selectedIndex];
+            const addedCost = parseFloat(selectedOpt.dataset.price) || 0;
+            
+            totalAddonCost += addedCost;
+            finalMessage += ` | ${groupName}: ${selectedOpt.value}`;
+        });
+
+        const finalUnitPrice = basePrice + totalAddonCost;
+
+        const clickedBtn = targetPool === 'cart' ? document.getElementById('cart-btn') : document.getElementById('bundle-btn');
+        const originalText = clickedBtn.textContent;
+
+        if (targetPool === 'cart') {
+            let cart = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+            cart.push({
+                name: baseName,
+                price: finalUnitPrice,
+                details: finalMessage || "Standard specifications",
+                qty: 1
+            });
+            localStorage.setItem('final_shopping_cart', JSON.stringify(cart));
+        } else {
+            let bundle = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
+            bundle.push({
+                name: baseName,
+                price: finalUnitPrice,
+                message: finalMessage || "Bundle item specification"
+            });
+            localStorage.setItem('my_custom_bundle', JSON.stringify(bundle));
+        }
+
+        clickedBtn.textContent = "✓ Added!";
+        clickedBtn.style.opacity = "0.7";
+        clickedBtn.disabled = true;
+
+        setTimeout(() => {
+            clickedBtn.textContent = originalText;
+            clickedBtn.style.opacity = "1";
+            clickedBtn.disabled = false;
+            
+            designInput.value = "";
+            document.getElementById('msg-input').value = "";
+            document.getElementById('file-input').value = "";
+            uploadedImageUrl = "";
+            if(document.getElementById('upload-status')) document.getElementById('upload-status').textContent = "";
+            
+            optionMenus.forEach(menu => menu.selectedIndex = 0);
+        }, 2000);
+    }
+</script>
+</body>
+</html>

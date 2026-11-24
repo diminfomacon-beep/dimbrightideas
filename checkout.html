@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  // We add a check to make sure the script loaded before trying to init
+  window.onload = function() {
+    if (window.emailjs) {
+      emailjs.init({
+        publicKey: "1LZbCPvH49G_r0ypB",
+      });
+      console.log("EmailJS loaded successfully.");
+    } else {
+      console.error("EmailJS failed to load due to browser blocking.");
+    }
+  };
+</script>
+   
+    <style>
+        body { font-family: sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; background: #c5c5dd; }
+        #master-list { width: 100%; max-width: 600px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .cart-item { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; justify-content: space-between; align-items: center; }
+        .options-section { width: 100%; max-width: 600px; margin-top: 20px; padding: 15px; background: #fff; border-radius: 15px; }
+        .total-box { font-size: 1.2em; margin: 20px 0; text-align: right; width: 100%; max-width: 600px; line-height: 1.6; }
+        .grand-total-row { font-size: 1.5em; font-weight: bold; color: #395763; border-top: 2px solid #395763; padding-top: 10px; margin-top: 10px; }
+        #paypal-button-container { width: 100%; max-width: 350px; margin-top: 20px; }
+        .input-style { padding: 8px; border-radius: 8px; border: 1px solid #ccc; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Complete Your Order</h2>
+    <div id="master-list"></div>
+
+    <div class="options-section">
+        <h3>Choose Delivery Method</h3>
+        <input type="radio" name="delivery" value="pickup" checked onclick="renderMasterCart()"> Local Pickup (Free)<br>
+        <input type="radio" name="delivery" value="shipping" onclick="renderMasterCart()"> Shipping<br>
+        
+        <div id="shipping-options" style="display:none; margin-top:10px; padding-left: 20px;">
+            <label>Destination:</label>
+           <select id="ship-region" onchange="renderMasterCart()" class="input-style">
+                <option value="US">United States ($9.50)</option>
+                <option value="CA">Canada (Calculated at Checkout)</option> <option value="INTL">International (Calculated at Checkout)</option>
+            </select>
+        </div>
+
+        <h3>Enter Discount Code</h3>
+        <input type="text" id="promo-input" placeholder="Enter code" class="input-style">
+        <button onclick="renderMasterCart()" style="padding: 8px; cursor: pointer;">Apply</button>
+        <div id="promo-msg" style="font-size: 12px; color: #28a745; margin-top: 5px;"></div>
+    </div>
+
+    <div class="total-box">
+        <div>Subtotal: $<span id="sub-total">0.00</span></div>
+        <div id="discount-row" style="color: #395763; display:none;">Discount: -$<span id="discount-amt">0.00</span></div>
+        <div>Shipping: $<span id="shipping-amt">0.00</span></div>
+        <div>Tax (4%): $<span id="tax-amt">0.00</span></div>
+        <div class="grand-total-row">Grand Total: $<span id="grand-total">0.00</span></div>
+    </div>
+
+    <div id="paypal-button-container"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AWHpVW_dn2CYWVWbV5HGD2v3NpGs5atS90DuDMGrNZzFT--Anx1Ec80q7bwOAQ2lqfc4Gpd0NbBkYWRd"></script>
+    <script>
+       function updateQty(index, change) {
+            let finalCart = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+            finalCart[index].qty = (finalCart[index].qty || 1) + change;
+            if (finalCart[index].qty <= 0) finalCart.splice(index, 1);
+            localStorage.setItem('final_shopping_cart', JSON.stringify(finalCart));
+            renderMasterCart();
+        }
+
+        function removeItem(index) {
+            let finalCart = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+            finalCart.splice(index, 1);
+            localStorage.setItem('final_shopping_cart', JSON.stringify(finalCart));
+            renderMasterCart();
+        }
+
+        // ... (updateQty and removeItem functions remain the same) ...
+
+                function renderMasterCart() {
+            const standardItems = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+            const bundleItems = JSON.parse(localStorage.getItem('my_bundle')) || [];
+            const customBundleItems = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
+        
+            // Combine all lists and move '.message' (notes/links) into '.details'
+            const finalCart = [
+                ...standardItems,
+                ...bundleItems.map(item => ({
+                    ...item,
+                    details: item.message || "No notes provided",
+                    qty: 1
+                })),
+                ...customBundleItems.map(item => ({
+                    ...item,
+                    details: item.message || "No notes provided",
+                    qty: 1
+                }))
+            ];
+        
+            const container = document.getElementById('master-list');            
+            const promoInput = document.getElementById('promo-input').value.trim().toUpperCase();
+            const promoMsg = document.getElementById('promo-msg');
+            
+            let baseTotal = 0;
+            const totalQty = finalCart.reduce((sum, item) => sum + (item.qty || 1), 0);
+
+            if (finalCart.length === 0) {
+                container.innerHTML = "<p style='text-align:center;'>Your cart is empty.</p>";
+            } else {
+                container.innerHTML = finalCart.map((item, index) => {
+                    const qty = item.qty || 1;
+                    const lineTotal = item.price * qty;
+                    baseTotal += lineTotal;
+                    return `
+                        <div class="cart-item">
+                            <div>
+                                <b>${item.name}</b><br>
+                                <small style="color:#666;">
+                                    ${(item.details || '').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #395763; text-decoration: underline;">View Photo</a>')}
+                                </small>                                <button onclick="removeItem(${index})" style="color:red; border:none; background:none; cursor:pointer;">[ REMOVE ]</button>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <button onclick="updateQty(${index}, -1)">-</button>
+                                <span>${qty}</span>
+                                <button onclick="updateQty(${index}, 1)">+</button>
+                            </div>
+                            <div><b>$${lineTotal.toFixed(2)}</b></div>
+                        </div>`;
+                }).join('');
+            }
+
+            // --- Promo Logic ---
+            let promoDiscount = 0;
+            const validPromos = { 
+                "MOTHERSDAY": { type: "percent", value: 0.10 },
+                "VIP20": { type: "percent", value: 0.20 },
+                "SAVE10": { type: "flat", value: 10.00 }
+            };
+
+            if (promoInput !== "") {
+                if (validPromos[promoInput]) {
+                    const promo = validPromos[promoInput];
+                    promoDiscount = promo.type === "percent" ? baseTotal * promo.value : promo.value;
+                    if (promoDiscount > baseTotal) promoDiscount = baseTotal;
+                    promoMsg.style.color = "#28a745";
+                    promoMsg.textContent = "Code applied!";
+                    document.getElementById('discount-row').style.display = "block";
+                } else {
+                    promoMsg.style.color = "#dc3545";
+                    promoMsg.textContent = "Invalid or expired code.";
+                    document.getElementById('discount-row').style.display = "none";
+                }
+            } else {
+                promoMsg.textContent = "";
+                document.getElementById('discount-row').style.display = "none";
+            }
+
+            // --- Shipping Logic ---
+            const deliveryType = document.querySelector('input[name="delivery"]:checked').value;
+            const selectedRegion = document.getElementById('ship-region').value;
+            let shippingCost = 0;
+
+            if (deliveryType === 'shipping') {
+                document.getElementById('shipping-options').style.display = 'block';
+                if (selectedRegion === "US") {
+                    shippingCost = 9.50;
+                } else if (selectedRegion === "CA") {
+                    if (totalQty >= 8) shippingCost = 75.00;
+                    else if (totalQty >= 4) shippingCost = 40.00;
+                    else shippingCost = 25.00;
+                } else {
+                    if (totalQty >= 8) shippingCost = 135.00;
+                    else if (totalQty >= 4) shippingCost = 95.00;
+                    else shippingCost = 65.00;
+                }
+            } else {
+                document.getElementById('shipping-options').style.display = 'none';
+            }
+
+            const subtotalAfterDiscount = baseTotal - promoDiscount;
+            const tax = subtotalAfterDiscount * 0.04;
+            const grandTotal = subtotalAfterDiscount + shippingCost + tax;
+
+            document.getElementById('sub-total').textContent = baseTotal.toFixed(2);
+            document.getElementById('discount-amt').textContent = promoDiscount.toFixed(2);
+            document.getElementById('shipping-amt').textContent = shippingCost.toFixed(2);
+            document.getElementById('tax-amt').textContent = tax.toFixed(2);
+            document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
+
+            return grandTotal.toFixed(2);
+        }
+
+        // --- NEW: Alert Function ---
+        function sendPushNotification(total) {
+            fetch("https://api.pushover.net/1/messages.json", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    token: "au8jzsjjx9wz4dxvgc95h9nj86mzgz", // PASTE YOUR TOKEN HERE
+                    user: "ueb3ouifx46g56n7by3rfh198nmagb",   // PASTE YOUR USER KEY HERE
+                    title: "New Sale! 💰",
+                    message: "You just received an order for $" + total,
+                    priority: 1
+                })
+            });
+        }
+
+  async function sendOrderEmail() {
+    const s = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+    const b = JSON.parse(localStorage.getItem('my_bundle')) || [];
+    const cb = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
+
+    // 1. Combine all items to find the image link
+    const allItems = [...s, ...b, ...cb];
+    let photoLink = "";
+
+    // Search for a Cloudinary URL in the details/message of any item
+    allItems.forEach(item => {
+        const text = (item.details || "") + (item.message || "");
+        const match = text.match(/https?:\/\/[^\s]+/);
+        if (match && !photoLink) photoLink = match[0];
+    });
+
+    // 2. Build the order list text
+    let summary = "";
+    s.forEach(i => summary += `• ${i.name} (x${i.qty})\n  Details: ${i.details || 'None'}\n\n`);
+    b.forEach(i => summary += `• Bundle: ${i.name}\n  Details: ${i.message || 'None'}\n\n`);
+    cb.forEach(i => summary += `• Custom: ${i.name}\n  Details: ${i.message || 'None'}\n\n`);
+
+    // 3. Map the data to your specific Template Variables
+    const templateParams = {
+        from_name: "Website Customer",    // Maps to {{from_name}}
+        from_email: "Check PayPal",       // Maps to {{from_email}}
+        cust_name: "Order Received",      // Maps to {{cust_name}}
+        design_image: photoLink,          // Maps to {{design_image}}
+        order_details: summary,           // Maps to {{order_details}}
+        grand_total: document.getElementById('grand-total').textContent
+    };
+
+    console.log("Sending to EmailJS:", templateParams);
+
+    return emailjs.send('service_ezq1fuc', 'template_ut1r5xk', templateParams)
+        .then(() => console.log("Email Sent Successfully"))
+        .catch(err => console.error("Email Failed:", err));
+}
+paypal.Buttons({
+    createOrder: (data, actions) => {
+        const standardItems = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+        const bundleItems = JSON.parse(localStorage.getItem('my_bundle')) || [];
+        const customBundleItems = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
+
+        // 1. Build the item list including Varieties/Add-ons in the description
+        let allItems = [
+            ...standardItems.map(item => ({
+                name: item.name,
+                // Concatenate variety and add-ons into the description
+                description: `${item.variety || ''} ${item.addons || ''} ${item.details || ''}`.trim() || "Standard Item",
+                unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
+                quantity: item.qty || 1
+            })),
+            ...bundleItems.map(item => ({
+                name: item.name,
+                description: item.message || "Bundle Item",
+                unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
+                quantity: 1
+            })),
+            ...customBundleItems.map(item => ({
+                name: item.name,
+                description: item.message || "Custom Bundle",
+                unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
+                quantity: 1
+            }))
+        ];
+
+        const subtotal = document.getElementById('sub-total').textContent;
+        const discount = parseFloat(document.getElementById('discount-amt').textContent);
+        const shipping = document.getElementById('shipping-amt').textContent;
+        const tax = document.getElementById('tax-amt').textContent;
+        const grandTotal = document.getElementById('grand-total').textContent;
+
+        // 2. IMPORTANT: If there is a discount, add it as a negative item 
+        // to make the math balance for PayPal's validation.
+        if (discount > 0) {
+            allItems.push({
+                name: "Discount Applied",
+                description: "Promo Code",
+                unit_amount: { currency_code: "USD", value: (-discount).toFixed(2) },
+                quantity: 1
+            });
+        }
+
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    currency_code: "USD",
+                    value: grandTotal,
+                    breakdown: {
+                        // item_total must now equal the sum of all items (including the negative discount item)
+                        item_total: { currency_code: "USD", value: (parseFloat(subtotal) - discount).toFixed(2) },
+                        shipping: { currency_code: "USD", value: shipping },
+                        tax_total: { currency_code: "USD", value: tax }
+                    }
+                },
+                items: allItems 
+            }]
+        });
+    },
+    // ... onApprove remains the same
+   onApprove: (data, actions) => {
+    return actions.order.capture().then(async (details) => {
+        console.log("Payment Captured");
+        const total = document.getElementById('grand-total').textContent;
+
+        // 1. Try to send notification
+        try {
+            sendPushNotification(total);
+        } catch(e) { console.log("Push failed"); }
+
+        // 2. Try to send email, but DON'T let it stop the redirect if it fails
+        if (window.emailjs) {
+            try {
+                await sendOrderEmail();
+                console.log("Email attempt finished");
+            } catch (err) {
+                console.error("Email function failed:", err);
+            }
+        } else {
+            console.error("EmailJS not defined, skipping email step.");
+        }
+
+        // 3. ALWAYS clear cart and redirect, even if email failed
+        ['final_shopping_cart', 'my_bundle', 'my_custom_bundle'].forEach(k => localStorage.removeItem(k));
+        window.location.href = "thank-you.html";
+        
+    }).catch(err => {
+        console.error("Capture Error:", err);
+    });
+}
+        }).render('#paypal-button-container');
+
+        renderMasterCart();
+    </script>
+</body>
+</html>
