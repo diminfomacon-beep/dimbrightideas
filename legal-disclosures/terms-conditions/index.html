@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Terms &amp; Conditions | D.I.M. Bright Ideas LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#fffefb; --surface:#fff6e6; --card:#ffffff; --ink:#1b2a25;
+    --muted:#54665e; --faint:#7c8d85; --teal:#0e4d42; --teal-ink:#0a3a32;
+    --teal-soft:#e3efe9; --amber:#b45309; --amber-bright:#d97706;
+    --amber-bg:#fef3c7; --line:#e9ddc9; --line-strong:#d9c8a8;
+    --radius:18px; --shadow:0 10px 30px rgba(27,42,37,.08), 0 2px 8px rgba(27,42,37,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--teal)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:"DM Serif Display", Georgia, serif;font-weight:400;line-height:1.12;margin:0}
+  h2{font-size:clamp(1.7rem, 3.4vw, 2.35rem)}
+  h3{font-size:1.35rem}
+  p{margin:0 0 14px}
+  /* ---------- site nav ---------- */
+  .site-nav{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .site-nav .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:var(--teal-ink);text-decoration:none;white-space:nowrap;margin-right:auto}
+  .site-nav .brand b{color:var(--amber)}
+  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.93rem}
+  .site-nav ul a:hover{background:var(--teal-soft);color:var(--teal-ink)}
+  .site-nav ul a.active{background:var(--teal);color:#fff}
+  /* ---------- page head ---------- */
+  .page-head{padding:44px 0 8px}
+  .page-head .kicker{letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;font-weight:700;color:var(--teal);margin:0 0 10px}
+  .page-head h1{font-size:clamp(2rem, 5vw, 3rem);margin-bottom:12px}
+  .page-head .lede{color:var(--muted);font-size:1.08rem;max-width:42rem}
+  main{padding-bottom:56px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .card h2{margin-bottom:10px}
+  .card h3{margin:22px 0 8px}
+  .card ul{margin:0 0 14px;padding-left:20px;color:var(--muted)}
+  .card ul li{margin-bottom:5px}
+  .card ul strong{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.7rem 1.25rem;border-radius:999px;border:1.5px solid transparent;font:inherit;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer}
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+  .contact-line{font-size:1.05rem}
+  .contact-line a{font-weight:700;text-decoration:none}
+  /* ---------- blog ---------- */
+  .posts{display:grid;gap:20px}
+  @media (min-width:820px){ .posts{grid-template-columns:repeat(3,1fr)} }
+  .post-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .post-card img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#fff}
+  .post-card .body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .post-card h3{margin:0 0 8px}
+  .post-card p{color:var(--muted);font-size:.95rem;margin:0 0 14px}
+  .post-card .meta{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+  .post-card a.read{font-weight:700;text-decoration:none;margin-top:auto}
+  .post-card a.read:hover{text-decoration:underline}
+  .post-body img{border-radius:14px;margin:18px 0}
+  .post-body .gift-ideas{font-weight:700;color:var(--teal-ink);margin:16px 0 6px}
+  .post-body .why{font-style:italic;color:var(--muted);border-left:3px solid var(--amber-bright);padding-left:14px;margin:12px 0 20px}
+  .post-body .why strong{color:var(--ink);font-style:normal}
+  /* ---------- gallery ---------- */
+  .videos{display:grid;gap:20px}
+  @media (min-width:640px){ .videos{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:960px){ .videos{grid-template-columns:repeat(3,1fr)} }
+  .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .stars{color:var(--amber-bright);font-size:1.4rem;letter-spacing:.1em}
+  .social-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  /* ---------- footer ---------- */
+  .site-footer{border-top:1px solid var(--line);background:var(--surface);padding:34px 0 40px;margin-top:20px}
+  .site-footer .foot-brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.25rem;color:var(--teal-ink);margin:0 0 6px}
+  .site-footer .foot-contact{color:var(--muted);font-size:.97rem;margin:0 0 16px}
+  .site-footer .foot-contact a{font-weight:700;text-decoration:none}
+  .site-footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padding:0}
+  .site-footer ul a{color:var(--teal);font-weight:600;font-size:.95rem;text-decoration:none}
+  .site-footer ul a:hover{text-decoration:underline}
+  .site-footer .foot-note{color:var(--faint);font-size:.85rem;margin:18px 0 0}
+  iframe.form-embed{width:100%;min-height:820px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  @media (max-width:640px){ .card{padding:20px} }
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../../">D.I.M. <b>Bright Ideas</b></a><ul><li><a href="../../">Home</a></li><li><a href="../../catalog/">Catalog</a></li><li><a href="../../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../../grab-and-go/">Grab &amp; Go</a></li><li><a href="../../gift-planning/">Gift Planning</a></li><li><a href="../../quote-request/">Quote Request</a></li><li><a href="../../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../../blog/">Blog</a></li><li><a href="../../gallery-reviews/">Gallery &amp; Reviews</a></li><li><a href="../../design-studio/">Design Studio</a></li><li><a href="../../cart/">Cart</a></li><li><a href="../../contact-us/">Contact Us</a></li></ul></div></nav>
+
+<main>
+<div class="wrap">
+  <div class="page-head">
+    <p class="kicker">Terms & Conditions</p>
+    <h1>Terms & Conditions</h1>
+  </div>
+  <div class="card">
+<p><strong>D.I.M. Bright Ideas</strong></p>
+<p><strong>Effective Date: 01/01/2026</strong></p>
+<p>Welcome to D.I.M. Bright Ideas (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;). By accessing our website or purchasing from our shop, you agree to the following terms and conditions.</p>
+<h3>Products</h3>
+<p>All products sold by D.I.M. Bright Ideas are handmade, made-to-order, or small-batch produced. Because of this, slight variations in color, texture, or appearance may occur and are part of the handmade process.</p>
+<p>Product photos are for display purposes only. Colors may appear different due to screen settings.</p>
+<h3>Custom &amp; Personalized Orders</h3>
+<p>Custom and personalized items are created based on the information provided by the customer at checkout.</p>
+<p>Please review all names, spelling, sizes, and design details carefully before submitting your order.</p>
+<p>D.I.M. Bright Ideas is not responsible for errors resulting from incorrect information provided by the buyer.</p>
+<p>Custom orders are final sale and cannot be returned or exchanged.</p>
+<h3>Pricing &amp; Payments</h3>
+<p>All prices are listed in U.S. dollars unless otherwise noted.</p>
+<p>Payment must be completed before production begins.</p>
+<p>We reserve the right to update pricing, product availability, or descriptions at any time.</p>
+<h3>Intellectual Property</h3>
+<p>All designs, images, text, graphics, and content on this website are the property of D.I.M. Bright Ideas and may not be copied, reproduced, or resold without written permission.</p>
+<h3>Limitation of Liability</h3>
+<p>D.I.M. Bright Ideas is not responsible for damages resulting from misuse of products, delays caused by shipping carriers, or circumstances beyond our control. To the fullest extent permitted under Georgia law, D.I.M. Bright Ideas shall not be liable for any indirect, incidental, special, or consequential damages resulting from the use or misuse of our products, including but not limited to loss of profits, personal injury, or property damage.</p>
+<h3>Governing Law</h3>
+<p>These Terms and Conditions are governed by and construed in accordance with the laws of the State of Georgia, without regard to its conflict of law principles.</p>
+<p>Any disputes arising from the use of this website or the purchase of products from D.I.M. Bright Ideas shall be resolved in the appropriate state or federal courts located within Georgia.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><p class="foot-brand">D.I.M. Bright Ideas LLC</p><p class="foot-contact">(478) 382-0150 &bull; <a href="mailto:info@dimbrightideas.com">info@dimbrightideas.com</a><br/>Hours: Mon&ndash;Fri 9am&ndash;4pm, Sat 10am&ndash;3pm, Sun 12pm&ndash;4pm EST</p><ul><li><a href="../../about/">About Us</a></li><li><a href="../../legal-disclosures/returns-refund/">Return &amp; Refund Policy</a></li><li><a href="../../legal-disclosures/terms-conditions/">Terms &amp; Conditions</a></li><li><a href="../../legal-disclosures/privacy-security/">Privacy &amp; Security</a></li><li><a href="../../legal-disclosures/shipping-policy/">Shipping Policy</a></li><li><a href="../../contact-us/">Contact Us</a></li><li><a href="../../legal-disclosures/faq/">FAQ</a></li></ul><p class="foot-note">Personalized gifts made to order in Georgia, USA.</p></div></footer>
+</body>
+</html>

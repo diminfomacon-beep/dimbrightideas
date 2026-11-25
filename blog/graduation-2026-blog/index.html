@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>From Campus to Career: Curated Gifts for the New Graduate | D.I.M. Bright Ideas LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#fffefb; --surface:#fff6e6; --card:#ffffff; --ink:#1b2a25;
+    --muted:#54665e; --faint:#7c8d85; --teal:#0e4d42; --teal-ink:#0a3a32;
+    --teal-soft:#e3efe9; --amber:#b45309; --amber-bright:#d97706;
+    --amber-bg:#fef3c7; --line:#e9ddc9; --line-strong:#d9c8a8;
+    --radius:18px; --shadow:0 10px 30px rgba(27,42,37,.08), 0 2px 8px rgba(27,42,37,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--teal)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:"DM Serif Display", Georgia, serif;font-weight:400;line-height:1.12;margin:0}
+  h2{font-size:clamp(1.7rem, 3.4vw, 2.35rem)}
+  h3{font-size:1.35rem}
+  p{margin:0 0 14px}
+  /* ---------- site nav ---------- */
+  .site-nav{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .site-nav .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:var(--teal-ink);text-decoration:none;white-space:nowrap;margin-right:auto}
+  .site-nav .brand b{color:var(--amber)}
+  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.93rem}
+  .site-nav ul a:hover{background:var(--teal-soft);color:var(--teal-ink)}
+  .site-nav ul a.active{background:var(--teal);color:#fff}
+  /* ---------- page head ---------- */
+  .page-head{padding:44px 0 8px}
+  .page-head .kicker{letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;font-weight:700;color:var(--teal);margin:0 0 10px}
+  .page-head h1{font-size:clamp(2rem, 5vw, 3rem);margin-bottom:12px}
+  .page-head .lede{color:var(--muted);font-size:1.08rem;max-width:42rem}
+  main{padding-bottom:56px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .card h2{margin-bottom:10px}
+  .card h3{margin:22px 0 8px}
+  .card ul{margin:0 0 14px;padding-left:20px;color:var(--muted)}
+  .card ul li{margin-bottom:5px}
+  .card ul strong{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.7rem 1.25rem;border-radius:999px;border:1.5px solid transparent;font:inherit;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer}
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+  .contact-line{font-size:1.05rem}
+  .contact-line a{font-weight:700;text-decoration:none}
+  /* ---------- blog ---------- */
+  .posts{display:grid;gap:20px}
+  @media (min-width:820px){ .posts{grid-template-columns:repeat(3,1fr)} }
+  .post-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .post-card img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#fff}
+  .post-card .body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .post-card h3{margin:0 0 8px}
+  .post-card p{color:var(--muted);font-size:.95rem;margin:0 0 14px}
+  .post-card .meta{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+  .post-card a.read{font-weight:700;text-decoration:none;margin-top:auto}
+  .post-card a.read:hover{text-decoration:underline}
+  .post-body img{border-radius:14px;margin:18px 0}
+  .post-body .gift-ideas{font-weight:700;color:var(--teal-ink);margin:16px 0 6px}
+  .post-body .why{font-style:italic;color:var(--muted);border-left:3px solid var(--amber-bright);padding-left:14px;margin:12px 0 20px}
+  .post-body .why strong{color:var(--ink);font-style:normal}
+  /* ---------- gallery ---------- */
+  .videos{display:grid;gap:20px}
+  @media (min-width:640px){ .videos{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:960px){ .videos{grid-template-columns:repeat(3,1fr)} }
+  .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .stars{color:var(--amber-bright);font-size:1.4rem;letter-spacing:.1em}
+  .social-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  /* ---------- footer ---------- */
+  .site-footer{border-top:1px solid var(--line);background:var(--surface);padding:34px 0 40px;margin-top:20px}
+  .site-footer .foot-brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.25rem;color:var(--teal-ink);margin:0 0 6px}
+  .site-footer .foot-contact{color:var(--muted);font-size:.97rem;margin:0 0 16px}
+  .site-footer .foot-contact a{font-weight:700;text-decoration:none}
+  .site-footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padding:0}
+  .site-footer ul a{color:var(--teal);font-weight:600;font-size:.95rem;text-decoration:none}
+  .site-footer ul a:hover{text-decoration:underline}
+  .site-footer .foot-note{color:var(--faint);font-size:.85rem;margin:18px 0 0}
+  iframe.form-embed{width:100%;min-height:820px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  @media (max-width:640px){ .card{padding:20px} }
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../../">D.I.M. <b>Bright Ideas</b></a><ul><li><a href="../../">Home</a></li><li><a href="../../catalog/">Catalog</a></li><li><a href="../../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../../grab-and-go/">Grab &amp; Go</a></li><li><a href="../../gift-planning/">Gift Planning</a></li><li><a href="../../quote-request/">Quote Request</a></li><li><a href="../../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../../blog/" class="active">Blog</a></li><li><a href="../../gallery-reviews/">Gallery &amp; Reviews</a></li><li><a href="../../design-studio/">Design Studio</a></li><li><a href="../../cart/">Cart</a></li><li><a href="../../contact-us/">Contact Us</a></li></ul></div></nav>
+
+<main>
+<div class="wrap">
+  <div class="page-head">
+    <p class="kicker">Blog &middot; v. DIM-051526-02</p>
+    <h1>From Campus to Career: Curated Gifts for the New Graduate</h1>
+  </div>
+  <div class="card post-body">
+    <img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQeWNP1Z_rzJWjdOznI1DAjeLpkDwGIt8kPNonwqwe0-4Ak58_7pyteCDNTWtdp-nYBBXp3icrNDY301Xnjn1VObfcT3LaCpPwJsvCpqzLlYJxxlUlpMysWQdJ44VY_diPq7v950MeKK5OgN-c23f2k--WPhwyUtkpXv87Rh6zpyqV3YFEXaNj9018X65rqEWY73qh2SGugOqZiC-DFcgVsB0dF3DILUfr8NJb6vZpk=w1280" alt="Personalized graduation gifts" />
+<p>Graduation is more than a ceremony &mdash; it&rsquo;s the celebration of years of hard work, determination, and growth. Whether they&rsquo;re graduating from high school, college, trade school, or earning an advanced degree, this milestone deserves to be recognized with a gift that&rsquo;s as meaningful as the accomplishment itself.</p>
+<p>While cash and gift cards are always appreciated, personalized gifts offer something even more valuable: a lasting reminder of how far they&rsquo;ve come and the people who supported them along the way.</p>
+<p>If you&rsquo;re searching for the perfect graduation gift, we&rsquo;ve curated ideas for every type of graduate and every stage of their next adventure.</p>
+<h2>For the Graduate Starting Their First Career</h2>
+<p>The transition from student to professional is exciting &mdash; and a little intimidating. Help them start their new journey with personalized gifts they&rsquo;ll use every day.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li>Custom tumblers for the daily commute</li>
+<li>Personalized coffee mugs for their new desk</li>
+<li>Custom mouse pads featuring inspirational quotes</li>
+<li>Personalized office d&eacute;cor</li>
+<li>Photo keepsakes that remind them of home</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> These practical gifts add personality to their workspace while celebrating their achievement.</p>
+<h2>For the College-Bound Graduate</h2>
+<p>Heading off to college means a new city, new friends, and new experiences. Personalized gifts can help make their dorm room feel a little more like home.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li>Personalized dorm d&eacute;cor</li>
+<li>Custom photo blankets</li>
+<li>Personalized water bottles and tumblers</li>
+<li>Custom wall art featuring family photos</li>
+<li>Memory keepsakes from home</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> A personalized gift brings comfort and familiarity during a major life transition.</p>
+<h2>For the Graduate Who Loves Memories</h2>
+<p>Some graduates treasure experiences more than possessions. For them, the best gift is one that preserves special moments.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li>Photo slate panels featuring graduation pictures</li>
+<li>Custom memory collages</li>
+<li>Personalized keepsake boxes</li>
+<li>Graduation photo displays</li>
+<li>Customized memory books</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> These gifts transform important milestones into lasting memories they can revisit for years to come.</p>
+<h2>For the Graduate Ready to Travel</h2>
+<p>Whether they&rsquo;re taking a gap year, moving for work, or simply exploring new opportunities, travel-friendly gifts are always appreciated.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li>Personalized travel tumblers</li>
+<li>Custom luggage tags</li>
+<li>Photo keychains</li>
+<li>Personalized travel accessories</li>
+<li>Custom drinkware for life on the go</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> They can carry a reminder of home wherever life takes them.</p>
+<h2>For the Graduate with Big Dreams</h2>
+<p>Every graduate has goals they&rsquo;re working toward. Personalized gifts can serve as daily encouragement as they pursue them.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li>Inspirational photo slates</li>
+<li>Custom motivational mugs</li>
+<li>Personalized desk accessories</li>
+<li>Goal-setting journals with custom covers</li>
+<li>Personalized wall art featuring favorite quotes</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> These gifts serve as a reminder of their accomplishments and the future they&rsquo;re building.</p>
+<h2>Graduation Gifts for Parents to Give</h2>
+<p>Parents often want graduation gifts that are both meaningful and memorable. The best gifts celebrate not only the achievement but also the journey.</p>
+<p>Consider including:</p>
+<ul>
+<li>A favorite childhood photo alongside a graduation portrait</li>
+<li>A personalized message about how proud you are</li>
+<li>A keepsake that commemorates the graduation year</li>
+<li>Family photos that capture the support system behind their success</li>
+</ul>
+<p>These personal touches often become the most cherished part of any gift.</p>
+<h2>Why Personalized Graduation Gifts Matter</h2>
+<p>Graduation marks the end of one chapter and the beginning of another. Personalized gifts stand out because they celebrate the individual behind the achievement. Unlike generic gifts, personalized keepsakes:</p>
+<ul>
+<li>Tell a story</li>
+<li>Capture memories</li>
+<li>Celebrate accomplishments</li>
+<li>Inspire future success</li>
+<li>Become treasured mementos</li>
+</ul>
+<p>Years from now, a personalized graduation gift can bring back the excitement, pride, and possibilities of this special moment.</p>
+<h2>Our Favorite Graduation Gift Picks</h2>
+<p>If you&rsquo;re looking for customer favorites, these consistently top the list:</p>
+<h3>Custom Tumblers</h3>
+<p>Practical, stylish, and perfect for busy graduates entering the next phase of life.</p>
+<h3>Photo Slate Panels</h3>
+<p>A premium way to showcase graduation portraits, family photos, and milestone moments.</p>
+<h3>Personalized Mugs</h3>
+<p>Perfect for dorm rooms, first apartments, or office desks.</p>
+<h3>Custom Keepsakes</h3>
+<p>Meaningful gifts that commemorate their achievement and celebrate their future.</p>
+<h2>Celebrate the Journey Ahead</h2>
+<p>Graduation isn&rsquo;t just about earning a diploma &mdash; it&rsquo;s about recognizing the hard work, dedication, and perseverance it took to get there.</p>
+<p>Whether your graduate is entering the workforce, heading to college, pursuing further education, or beginning an entirely new adventure, a personalized gift helps commemorate one of life&rsquo;s most important milestones.</p>
+<p>Celebrate their success. Honor their journey. Inspire their future.</p>
+<p>Because every graduate deserves a gift that&rsquo;s as unique as the path that brought them here.</p>
+<h3>Congratulations, Class of 2026!</h3>
+    <p style="margin-top:26px"><a class="btn btn-ghost" href="../">&larr; Back to the Blog</a>&nbsp; <a class="btn btn-primary" href="../../catalog/">Browse the Catalog</a></p>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><p class="foot-brand">D.I.M. Bright Ideas LLC</p><p class="foot-contact">(478) 382-0150 &bull; <a href="mailto:info@dimbrightideas.com">info@dimbrightideas.com</a><br/>Hours: Mon&ndash;Fri 9am&ndash;4pm, Sat 10am&ndash;3pm, Sun 12pm&ndash;4pm EST</p><ul><li><a href="../../about/">About Us</a></li><li><a href="../../legal-disclosures/returns-refund/">Return &amp; Refund Policy</a></li><li><a href="../../legal-disclosures/terms-conditions/">Terms &amp; Conditions</a></li><li><a href="../../legal-disclosures/privacy-security/">Privacy &amp; Security</a></li><li><a href="../../legal-disclosures/shipping-policy/">Shipping Policy</a></li><li><a href="../../contact-us/">Contact Us</a></li><li><a href="../../legal-disclosures/faq/">FAQ</a></li></ul><p class="foot-note">Personalized gifts made to order in Georgia, USA.</p></div></footer>
+</body>
+</html>
