@@ -5,6 +5,9 @@ const PIXABAY_KEY = '54841320-2fc493da46915b0eb0a6f740c';
 // PRODUCT PICKER — Step 1: choose a product before designing
 // ==========================================================================
 const PHOTO_BASE = 'https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/';
+const NEW_PHOTO_BASE = 'https://diminfomacon-beep.github.io/dimbrightideas/photos/';
+// '20oz Skinny Tumbler - Ombre.png' is not in the shared photos/ folder yet — keep it on Mothers_Day.
+function photoURL(file){ return (file === '20oz Skinny Tumbler - Ombre.png' ? PHOTO_BASE : NEW_PHOTO_BASE) + encodeURIComponent(file); }
 const PRODUCTS = [
     { id: 'skinny-ombre', name: '20oz Skinny Tumbler – Ombre', price: 17, area: 'about 8 in × 3 in', photo: '20oz Skinny Tumbler - Ombre.png', print: { left: 295, top: 130, width: 210, height: 360 } },
     { id: 'traveler-40oz', name: '40oz Traveler Tumbler', price: 32, area: 'about 9 in × 4 in', photo: '40oz Traveler Tumbler.png', print: { left: 278, top: 150, width: 244, height: 340 } },
@@ -19,7 +22,7 @@ function buildProductGrid() {
     if (!grid) return;
     grid.innerHTML = PRODUCTS.map(function(prod) {
         return '<div class="product-card" data-id="' + prod.id + '" onclick="selectProduct(\'' + prod.id + '\')">' +
-            '<img src="' + PHOTO_BASE + encodeURIComponent(prod.photo) + '" alt="' + prod.name + '">' +
+            '<img src="' + photoURL(prod.photo) + '" alt="' + prod.name + '">' +
             '<div class="product-name">' + prod.name + '</div>' +
             '<div class="product-price">From $' + prod.price + '</div></div>';
     }).join('');
