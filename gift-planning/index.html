@@ -134,6 +134,7 @@
             margin-bottom: 40px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 15px;
+            scroll-margin-top: 70px;
         }
 
         .tab-btn {
@@ -894,6 +895,9 @@ function switchFormView(targetView) {
         tabBulk.classList.add('active');
         tabInd.classList.remove('active');
     }
+    // Scroll so the tabs sit at the top of the browser and the form is visible
+    var tabs = document.querySelector('.navigation-tabs');
+    if (tabs) { tabs.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     lucide.createIcons();
 }
 
