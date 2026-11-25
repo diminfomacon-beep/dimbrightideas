@@ -215,17 +215,11 @@
 
         // --- NEW: Alert Function ---
         function sendPushNotification(total) {
-            fetch("https://api.pushover.net/1/messages.json", {
+            fetch("https://script.google.com/macros/s/AKfycbx8J55LywCP5SefbQSuVZRR2Tv0p-kOEpJEnMewfzav0ioJsbw7Zu1qZYZK_FHMc-15/exec", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({
-                    token: "au8jzsjjx9wz4dxvgc95h9nj86mzgz", // PASTE YOUR TOKEN HERE
-                    user: "ueb3ouifx46g56n7by3rfh198nmagb",   // PASTE YOUR USER KEY HERE
-                    title: "New Sale! 💰",
-                    message: "You just received an order for $" + total,
-                    priority: 1
-                })
-            });
+                body: new URLSearchParams({ title: "New Sale! 💰", message: "You just received an order for $" + total })
+            }).catch(function(err){ console.error("Pushover notification failed:", err); });
         }
 
   async function sendOrderEmail() {
