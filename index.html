@@ -93,13 +93,12 @@
   .facts ul{margin:0;padding:0;display:contents}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--amber-bright);flex:none}
   /* Hero slideshow — product photos only, auto-advancing */
-  .hero-slides{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--surface);margin-top:26px}
-  .hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
+  .hero-slides{display:block;position:relative;width:100%;max-width:560px;margin:26px auto 0;aspect-ratio:1/1;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-lg);background:#fff}
+  .hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1s ease}
   .hero-slides img.active{opacity:1}
   .hero-dots{display:flex;justify-content:center;gap:7px;margin-top:12px}
   .hero-dots span{width:7px;height:7px;border-radius:50%;background:#d9c8a8}
   .hero-dots span.on{background:var(--amber-bright)}
-  @media (max-width:640px){ .hero-slides{aspect-ratio:4/3} }
   @media (prefers-reduced-motion: reduce){ .hero-slides img{transition:none} }
 
   /* ---------- Sections ---------- */
@@ -232,18 +231,20 @@
       <a class="btn btn-amber" href="quote-request/">Get a Quote</a>
     </div>
     <a class="hero-slides" href="catalog/" aria-label="Browse the catalog">
-      <img class="active" src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/20oz%20Skinny%20Tumbler%20-%20Ombre.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Glass%20Mug.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/40oz%20Traveler%20Tumbler.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Medium%20Tote%20Bag.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Memory%20Photo%20Blanket.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Aluminum%20Business%20Cards.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Tri%20Sip%20Tumbler.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Wood%20Photo%20Panel.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Stemless%20Wine%20Tumbler.png" alt="" />
-      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Adult%20Polyester%20Short%20Sleeve%20T-Shirt%20-%20White.png" alt="" />
+      <img class="active" src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/20oz%20Christmas%20Glass.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/30oz%20Christmas%20Mint%20Grippy.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/35oz%20Glitter%20Christmas.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/20oz%20Pink%20Christmas%20Glass.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/18oz%20Christmas%20Glow%20Wine%20Glass.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/30oz%20Christmas%20Trio%20Traveler.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/20oz%20Christmas%20Storyboard.jpeg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/Personalized%20Double%20Sided%20Ornaments.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/Christmas%20Photo%20Panel%20-%208%20x%2010%20%282%29.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go/photos/20oz%20Skinny%20Ombre%20Tumbler.jpg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go/photos/17oz%20Glass%20Mug.jpg" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go/photos/25oz%20Water%20Bottle.jpg" alt="" />
     </a>
-    <div class="hero-dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="hero-dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   </div>
 </header>
 
