@@ -399,8 +399,20 @@
         .step-nav .btn-back:hover { border-color: var(--primary-color); }
         .step-nav .btn-next:only-child { margin-left: auto; }
     </style>
+<style>
+  /* site nav (same as home page) */
+  .site-nav{background:#fffefb;border-bottom:1px solid #e9ddc9;position:sticky;top:0;z-index:50}
+  .site-nav .wrap{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:#0a3a32;text-decoration:none;white-space:nowrap;margin-right:auto}
+  .site-nav .brand b{color:#b45309}
+  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:#1b2a25;font-weight:600;font-size:.93rem;font-family:"DM Sans", system-ui, sans-serif}
+  .site-nav ul a:hover{background:#e3efe9;color:#0a3a32}
+  .site-nav ul a.active{background:#0e4d42;color:#fff}
+</style>
 </head>
 <body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../">D.I.M. <b>Bright Ideas</b></a><ul><li><a href="../">Home</a></li><li><a href="../catalog/">Catalog</a></li><li><a href="../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../grab-and-go/">Grab & Go</a></li><li><a href="../gift-planning/" class="active">Gift Planning</a></li><li><a href="../quote-request/">Quote Request</a></li><li><a href="../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../blog/">Blog</a></li><li><a href="../gallery-reviews/">Gallery & Reviews</a></li><li><a href="../design-studio/">Design Studio</a></li><li><a href="../cart/">Cart</a></li><li><a href="../contact-us/">Contact Us</a></li></ul></div></nav>
 
 <!-- Hero — page header -->
 <header class="hero">
@@ -1145,6 +1157,7 @@ document.getElementById('giftForm').addEventListener('submit', function(e) {
 var currentStep = 1;
 var TOTAL_STEPS = 4;
 function showStep(n) {
+    var prevStep = currentStep;
     currentStep = Math.max(1, Math.min(TOTAL_STEPS, n));
     var panels = document.querySelectorAll('#giftForm .step-panel');
     panels.forEach(function(p, i) { p.classList.toggle('active', i === currentStep - 1); });
@@ -1160,7 +1173,9 @@ function showStep(n) {
     var submitBtn = document.querySelector('#giftForm .submit-btn');
     if (submitBtn) submitBtn.style.display = (currentStep === TOTAL_STEPS) ? '' : 'none';
     var head = document.querySelector('#giftForm .form-header');
-    if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Only scroll when the step actually changes. The showStep(1) call on
+    // page load must not pull the page down to the form.
+    if (head && prevStep !== currentStep) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function wizardNext() {
     var panel = document.querySelector('#giftForm .step-panel.active');
@@ -1207,6 +1222,7 @@ showStep(1);
 var bulkCurrentStep = 1;
 var BULK_TOTAL_STEPS = 4;
 function bulkShowStep(n) {
+    var prevStep = bulkCurrentStep;
     bulkCurrentStep = Math.max(1, Math.min(BULK_TOTAL_STEPS, n));
     var panels = document.querySelectorAll('#bulkGiftForm .step-panel');
     panels.forEach(function(p, i) { p.classList.toggle('active', i === bulkCurrentStep - 1); });
@@ -1222,7 +1238,8 @@ function bulkShowStep(n) {
     var submitBtn = document.querySelector('#bulkGiftForm .submit-btn');
     if (submitBtn) submitBtn.style.display = (bulkCurrentStep === BULK_TOTAL_STEPS) ? '' : 'none';
     var head = document.querySelector('#bulkGiftForm .form-header');
-    if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Only scroll when the step actually changes (see showStep above).
+    if (head && prevStep !== bulkCurrentStep) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 function bulkWizardNext() {
     var panel = document.querySelector('#bulkGiftForm .step-panel.active');

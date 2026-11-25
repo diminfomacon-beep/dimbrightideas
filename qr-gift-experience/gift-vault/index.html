@@ -120,8 +120,20 @@
     html{scroll-behavior:auto}
   }
 </style>
+<style>
+  /* site nav (same as home page) */
+  .site-nav{background:#fffefb;border-bottom:1px solid #e9ddc9;position:sticky;top:0;z-index:50}
+  .site-nav .wrap{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:#0a3a32;text-decoration:none;white-space:nowrap;margin-right:auto}
+  .site-nav .brand b{color:#b45309}
+  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:#1b2a25;font-weight:600;font-size:.93rem;font-family:"DM Sans", system-ui, sans-serif}
+  .site-nav ul a:hover{background:#e3efe9;color:#0a3a32}
+  .site-nav ul a.active{background:#0e4d42;color:#fff}
+</style>
 </head>
 <body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../../">D.I.M. <b>Bright Ideas</b></a><ul><li><a href="../../">Home</a></li><li><a href="../../catalog/">Catalog</a></li><li><a href="../../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../../grab-and-go/">Grab & Go</a></li><li><a href="../../gift-planning/">Gift Planning</a></li><li><a href="../../quote-request/">Quote Request</a></li><li><a href="../../qr-gift-experience/" class="active">QR Gift Experience</a></li><li><a href="../../blog/">Blog</a></li><li><a href="../../gallery-reviews/">Gallery & Reviews</a></li><li><a href="../../design-studio/">Design Studio</a></li><li><a href="../../cart/">Cart</a></li><li><a href="../../contact-us/">Contact Us</a></li></ul></div></nav>
 
 <!-- ============ HERO ============ -->
 <header class="hero">
