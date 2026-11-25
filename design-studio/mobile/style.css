@@ -108,7 +108,7 @@ body, html {
 .tray-content {
     flex: 1;
     overflow-y: auto;
-    padding: 0 20px 40px 20px;
+    padding: 0 20px 110px 20px;
 }
 
 /* SECTION STYLING */
