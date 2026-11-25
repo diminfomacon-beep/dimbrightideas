@@ -39,8 +39,9 @@
   .site-nav ul a.active{background:var(--teal);color:#fff}
   .site-nav .nav-toggle{display:none}
   @media (max-width: 768px){
-    .site-nav .wrap{flex-wrap:wrap;justify-content:space-between}
-    .site-nav .nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:none;border:none;color:#0e4d42;font-size:1.5rem;line-height:1;padding:6px 10px;cursor:pointer}
+    .site-nav .wrap{flex-wrap:wrap;justify-content:flex-start}
+    .site-nav .nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:none;border:none;color:#0e4d42;font-size:1.5rem;line-height:1;padding:6px 10px;cursor:pointer;order:-1}
+    .site-nav .brand{margin-right:0}
     .site-nav ul{display:none}
     .site-nav.open ul{display:flex;flex-direction:column;width:100%;gap:2px}
     .site-nav.open ul a{display:block;text-align:left}
