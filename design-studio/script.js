@@ -24,10 +24,10 @@ canvas.on('mouse:down', function() {
 // ==========================================================================
 // 2B. PRODUCT PICKER — Step 1: choose what the design goes on
 // ==========================================================================
-const PHOTO_BASE = 'https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/';
+const PHOTO_BASE = 'https://diminfomacon-beep.github.io/dimbrightideas/photos/';
 
 const PRODUCTS = [
-    { id: 'skinny-ombre', name: '20oz Skinny Tumbler \u2013 Ombre', price: 'From $17', area: 'about 8 in \u00d7 3 in', photo: PHOTO_BASE + '20oz%20Skinny%20Tumbler%20-%20Ombre.png', print: { left: 295, top: 130, width: 210, height: 360 } },
+    { id: 'skinny-ombre', name: '20oz Skinny Tumbler \u2013 Ombre', price: 'From $17', area: 'about 8 in \u00d7 3 in', photo: PHOTO_BASE + '20oz%20Skinny%20Tumbler%20-%20Ombre.jpg', print: { left: 295, top: 130, width: 210, height: 360 } },
     { id: 'traveler-40oz', name: '40oz Traveler Tumbler', price: 'From $32', area: 'about 9 in \u00d7 4 in', photo: 'https://diminfomacon-beep.github.io/dimbrightideas/photos/40oz%20Traveler%20Tumbler.png', print: { left: 278, top: 150, width: 244, height: 340 } },
     { id: 'glass-mug', name: 'Glass Mug', price: 'From $13', area: 'about 3 in \u00d7 3 in', photo: 'https://diminfomacon-beep.github.io/dimbrightideas/photos/Glass%20Mug.png', print: { left: 240, top: 170, width: 260, height: 260 } },
     { id: 'tshirt-poly', name: 'T-Shirt (Polyester, White)', price: 'From $15', area: 'about 11 in \u00d7 12 in', photo: 'https://diminfomacon-beep.github.io/dimbrightideas/photos/Adult%20Polyester%20Short%20Sleeve%20T-Shirt%20-%20White.png', print: { left: 315, top: 230, width: 170, height: 220 } },
