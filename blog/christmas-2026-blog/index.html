@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Personalized Christmas Gifts: A Guide for Everyone on Your List | D.I.M. Bright Ideas LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#fffefb; --surface:#fff6e6; --card:#ffffff; --ink:#1b2a25;
+    --muted:#54665e; --faint:#7c8d85; --teal:#0e4d42; --teal-ink:#0a3a32;
+    --teal-soft:#e3efe9; --amber:#b45309; --amber-bright:#d97706;
+    --amber-bg:#fef3c7; --line:#e9ddc9; --line-strong:#d9c8a8;
+    --radius:18px; --shadow:0 10px 30px rgba(27,42,37,.08), 0 2px 8px rgba(27,42,37,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--teal)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:"DM Serif Display", Georgia, serif;font-weight:400;line-height:1.12;margin:0}
+  h2{font-size:clamp(1.7rem, 3.4vw, 2.35rem)}
+  h3{font-size:1.35rem}
+  p{margin:0 0 14px}
+  /* ---------- site nav ---------- */
+  .site-nav{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .site-nav .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:var(--teal-ink);text-decoration:none;white-space:nowrap;margin-right:auto}
+  .site-nav .brand b{color:var(--amber)}
+  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.93rem}
+  .site-nav ul a:hover{background:var(--teal-soft);color:var(--teal-ink)}
+  .site-nav ul a.active{background:var(--teal);color:#fff}
+  /* ---------- page head ---------- */
+  .page-head{padding:44px 0 8px}
+  .page-head .kicker{letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;font-weight:700;color:var(--teal);margin:0 0 10px}
+  .page-head h1{font-size:clamp(2rem, 5vw, 3rem);margin-bottom:12px}
+  .page-head .lede{color:var(--muted);font-size:1.08rem;max-width:42rem}
+  main{padding-bottom:56px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);margin-bottom:20px}
+  .card h2{margin-bottom:10px}
+  .card h3{margin:22px 0 8px}
+  .card ul{margin:0 0 14px;padding-left:20px;color:var(--muted)}
+  .card ul li{margin-bottom:5px}
+  .card ul strong{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.7rem 1.25rem;border-radius:999px;border:1.5px solid transparent;font:inherit;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer}
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+  .contact-line{font-size:1.05rem}
+  .contact-line a{font-weight:700;text-decoration:none}
+  /* ---------- blog ---------- */
+  .posts{display:grid;gap:20px}
+  @media (min-width:820px){ .posts{grid-template-columns:repeat(3,1fr)} }
+  .post-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .post-card img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#fff}
+  .post-card .body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .post-card h3{margin:0 0 8px}
+  .post-card p{color:var(--muted);font-size:.95rem;margin:0 0 14px}
+  .post-card .meta{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+  .post-card a.read{font-weight:700;text-decoration:none;margin-top:auto}
+  .post-card a.read:hover{text-decoration:underline}
+  .post-body img{border-radius:14px;margin:18px 0}
+  .post-body .gift-ideas{font-weight:700;color:var(--teal-ink);margin:16px 0 6px}
+  .post-body .why{font-style:italic;color:var(--muted);border-left:3px solid var(--amber-bright);padding-left:14px;margin:12px 0 20px}
+  .post-body .why strong{color:var(--ink);font-style:normal}
+  /* ---------- gallery ---------- */
+  .videos{display:grid;gap:20px}
+  @media (min-width:640px){ .videos{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:960px){ .videos{grid-template-columns:repeat(3,1fr)} }
+  .video{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .stars{color:var(--amber-bright);font-size:1.4rem;letter-spacing:.1em}
+  .social-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  /* ---------- footer ---------- */
+  .site-footer{border-top:1px solid var(--line);background:var(--surface);padding:34px 0 40px;margin-top:20px}
+  .site-footer .foot-brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.25rem;color:var(--teal-ink);margin:0 0 6px}
+  .site-footer .foot-contact{color:var(--muted);font-size:.97rem;margin:0 0 16px}
+  .site-footer .foot-contact a{font-weight:700;text-decoration:none}
+  .site-footer ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padding:0}
+  .site-footer ul a{color:var(--teal);font-weight:600;font-size:.95rem;text-decoration:none}
+  .site-footer ul a:hover{text-decoration:underline}
+  .site-footer .foot-note{color:var(--faint);font-size:.85rem;margin:18px 0 0}
+  iframe.form-embed{width:100%;min-height:820px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  @media (max-width:640px){ .card{padding:20px} }
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../../">D.I.M. <b>Bright Ideas</b></a><ul><li><a href="../../">Home</a></li><li><a href="../../catalog/">Catalog</a></li><li><a href="../../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../../grab-and-go/">Grab &amp; Go</a></li><li><a href="../../gift-planning/">Gift Planning</a></li><li><a href="../../quote-request/">Quote Request</a></li><li><a href="../../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../../blog/" class="active">Blog</a></li><li><a href="../../gallery-reviews/">Gallery &amp; Reviews</a></li><li><a href="../../design-studio/">Design Studio</a></li><li><a href="../../cart/">Cart</a></li><li><a href="../../contact-us/">Contact Us</a></li></ul></div></nav>
+
+<main>
+<div class="wrap">
+  <div class="page-head">
+    <p class="kicker">Blog &middot; v. DIM-112326-04</p>
+    <h1>Personalized Christmas Gifts: A Guide for Everyone on Your List</h1>
+  </div>
+  <div class="card post-body">
+<img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQcLMsetSAIAVZBm-7mGVN_jtjpeS9rH3VD_AnKEex0C2-_EYKvFMgBIkS0strUFyJmLTOvJHEtjJTLJX8AhYqcBiIvgt6ShEhAuVIpBeBod1rGOfqlfeytVbRxegtk-2WZielSy9mLhA8Z4bDkf7_vj0ixQCAComqhNEAx4-QgAiKOVjnRB-FSgMeBZogFg0Ee5M4kOE8wCEgv9RFouYlkQWEuMJcLZ5IsnAXAgZPU=w1280" alt="Personalized Christmas gifts" />
+<p>Finding the right Christmas gift shouldn&rsquo;t feel like a chore. At Dim Bright Ideas, we specialize in turning your favorite moments into high-quality, custom products. Whether they&rsquo;re a coffee lover, always on the go, or the one who makes the house feel like home at Christmas, we have the perfect custom piece for them.</p>
+<p><strong>Order by Friday, December 11 for Christmas delivery.</strong> Custom orders take 5&ndash;14 business days, so the sooner the better.</p>
+<h2>&#127876; For the Christmas Morning: Keepsakes They&rsquo;ll Keep</h2>
+<img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQcsY05Ow6dmWzoEucptNAO1mmfYBW8OsHP2KSggOXfmlyOBk6qNfEcvD2Jn_QleC2fov34RvzpMt6O3GfGKHFrfh7JPXFxqMtuyD7cVbRA9tleZFk5HXMCv1HWfetAz-xzd6oZTB04YWTF51s9EoKyz3WvTRyyCwzDeprxWtXxkAoUMuxWnXW_o-ZQHCSL56U154f2phniT_16diQcxJ7v8xm-f2kq4YZ6NQ4Ool6g=w1280" alt="Christmas morning keepsakes" />
+<p>Nothing beats a gift made from a real memory.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li><strong>Christmas Glass:</strong> Your photo or design on a festive Christmas glass, made for their favorite holiday drink.</li>
+<li><strong>Storyboard Tumbler:</strong> Their story in pictures, wrapped around a tumbler they&rsquo;ll reach for all winter.</li>
+<li><strong>Christmas Photo Panel:</strong> Your photo printed on a panel, ready to display &mdash; for the tree, the mantel, or their desk.</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> It&rsquo;s a piece of a real memory, made just for them.</p>
+<h2>&#127876; For the One Who&rsquo;s Always Cold: Tumblers That Keep Up</h2>
+<p>Warm drinks, cold days, and a design that reminds them of home.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li><strong>Mint Grippy Tumbler:</strong> A 20oz grippy tumbler in Christmas mint, with a textured grip and your custom design.</li>
+<li><strong>Glitter Christmas Tumbler:</strong> A little sparkle for the season &mdash; personalized with a name, photo, or message.</li>
+<li><strong>Trio Traveler Tumbler:</strong> Built for all-day sipping, monogram or full design, ready for holiday travel.</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> They&rsquo;ll reach for it every cold morning and think of you.</p>
+<img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQcK9taEoqONb4aQVbtCLklT-i4PqQS000O5sJaOwFuupbfh0wibErCNQniNPlcwbL68pOxk-OaNWxa9lbFFt5uOFb16s2ROk9UYqZsYceehSQIaJBwGaMREsy6jIDnUaAVBPeBGbeCjZgoFbuA255u78qbFm-0SrjQDSYmbu-KSNAo8Z9anLz6UHvr96ZK6eV6EvgarCSuzxZrs6w4R1IACoP4EZwMfyB-XdEcQ=w1280" alt="Tumblers for cold days" />
+<h2>&#127876; For the Holiday Host: Glasses for the Table</h2>
+<img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQdCTAgyJ5GTyzm_1zpTkB2uFHysL3WXTZ5ipIiSs3k1aOSJZtZqiGS3NTeq9MbVPffrlHZ7DOynx-q8-a_AWsV_iAKSuDuGPbRBYe_Cs6iRVfI2YgrXCKTOkYplzk9f0ApVG0sgbOSggjRvh3LPCSDf7N7nPxV7daS9f2uxUKWqFBl982cH7OJOSg-d8uobcAQLiG4cbKwrFosrYk6LRojPa7yak50l-4y7o_xxsAw=w1280" alt="Glasses for the holiday host" />
+<p>For the one who pours for everyone else.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li><strong>Glow Wine Glass:</strong> A wine glass that glows &mdash; personalized for the host with the most.</li>
+<li><strong>Pink Christmas Glass:</strong> A festive pink Christmas glass, made personal with your design.</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> It turns their table into the celebration.</p>
+<h2>&#127876; For the Stocking: Small Gifts, Big Impression</h2>
+<p>The little extras that finish a gift &mdash; or stand on their own.</p>
+<p class="gift-ideas">Gift Ideas:</p>
+<ul>
+<li><strong>Double Sided Ornaments:</strong> Your photo or design on both sides &mdash; for the tree, gifts, and keepsakes.</li>
+<li><strong>Fridge Magnets:</strong> Your logo, photo, or message, right on the fridge.</li>
+<li><strong>Bookmark:</strong> A personal bookmark &mdash; for readers, students, and teachers.</li>
+<li><strong>Keychain:</strong> Five shapes: Diamond, Heart, Circle, Dog Bone, and Rectangle.</li>
+<li><strong>Beadable Pen:</strong> A beaded pen, personalized with a name, word, or design.</li>
+<li><strong>Bottle Opener Keychain:</strong> A custom bottle opener keychain &mdash; for housewarmings, groomsmen, and gifts.</li>
+<li><strong>Jigsaw Puzzle:</strong> Your photo as a puzzle &mdash; fun to give, fun to make.</li>
+</ul>
+<p class="why"><strong>Why they&rsquo;ll love it:</strong> The small gifts are often the ones they keep the longest.</p>
+<img src="https://lh7-us.googleusercontent.com/sitesv-images-rt/APXyLQeX4gcie9vN8RJbXyGSe35Gvhj7-hJgH8jiQPCwPr0y57pW6KEpMvKjE200pqBfmt6Y_i8IzVVZsJrjcX0ug7stgZKOronBmHdDg35pDn8hW0nB-htfQ0OfjNSY354fNOfMclkyNvV1PYn8iKYzGcoQB01I76ozh0iPjLZoVwDgxHxwvqFk0eyWZd5CI2ZhWB4fwt6__E8Mat0l2IsddYiRlrM9sEB8j3FJPc32=w1280" alt="Stocking stuffers" />
+<h2>Ready to Create Theirs?</h2>
+<p>Don&rsquo;t wait until the last minute! Custom items take time to craft to perfection.</p>
+<p>Order by December 11 for Christmas.</p>
+    <p style="margin-top:26px"><a class="btn btn-ghost" href="../">&larr; Back to the Blog</a>&nbsp; <a class="btn btn-primary" href="../../catalog/">Browse the Catalog</a></p>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer"><div class="wrap"><p class="foot-brand">D.I.M. Bright Ideas LLC</p><p class="foot-contact">(478) 382-0150 &bull; <a href="mailto:info@dimbrightideas.com">info@dimbrightideas.com</a><br/>Hours: Mon&ndash;Fri 9am&ndash;4pm, Sat 10am&ndash;3pm, Sun 12pm&ndash;4pm EST</p><ul><li><a href="../../about/">About Us</a></li><li><a href="../../legal-disclosures/returns-refund/">Return &amp; Refund Policy</a></li><li><a href="../../legal-disclosures/terms-conditions/">Terms &amp; Conditions</a></li><li><a href="../../legal-disclosures/privacy-security/">Privacy &amp; Security</a></li><li><a href="../../legal-disclosures/shipping-policy/">Shipping Policy</a></li><li><a href="../../contact-us/">Contact Us</a></li><li><a href="../../legal-disclosures/faq/">FAQ</a></li></ul><p class="foot-note">Personalized gifts made to order in Georgia, USA.</p></div></footer>
+</body>
+</html>
