@@ -403,6 +403,13 @@ document.getElementById('submitForm').addEventListener('submit', function(event)
         }
     })
     .then(() => {
+        // Fire-and-forget Pushover alert — runs only after the email succeeds,
+        // and a relay failure can never break the success flow.
+        fetch("https://script.google.com/macros/s/AKfycbx8J55LywCP5SefbQSuVZRR2Tv0p-kOEpJEnMewfzav0ioJsbw7Zu1qZYZK_FHMc-15/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ title: "New Design Studio Submission!", message: "A customer submitted a design in the Design Studio. Check your email for the details." })
+        }).catch(function(err){ console.error("Pushover notification failed:", err); });
         showStatus("✅ Success! Design sent.", "green");
         submitBtn.disabled = false;
         document.getElementById('submitForm').reset();
