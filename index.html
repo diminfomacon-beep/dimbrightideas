@@ -78,27 +78,29 @@
   @media (prefers-reduced-motion: reduce){ .banner .flake{animation:none;display:none} }
 
   /* ---------- Hero ---------- */
-  .hero{padding:40px 0 10px}
-  .hero-grid{display:grid;gap:28px;align-items:center}
-  @media (min-width:900px){ .hero-grid{grid-template-columns:1.05fr .95fr;gap:44px} }
+  .hero{padding:40px 0 10px;text-align:center}
   .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;font-weight:700;color:var(--teal);margin:0 0 14px}
   .hero h1{font-size:clamp(2.15rem, 5.2vw, 3.4rem);margin-bottom:16px}
   .hero h1 em{font-style:normal;color:var(--amber);box-shadow:inset 0 -0.42em 0 var(--amber-bg)}
-  .hero .lede{font-size:1.13rem;color:var(--muted);max-width:34rem;margin-bottom:22px}
+  .hero .lede{font-size:1.13rem;color:var(--muted);max-width:34rem;margin:0 auto 22px}
   .hero .lede strong{color:var(--ink)}
   .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+  .hero .cta-row{justify-content:center}
   .cta-row .btn{flex:1 1 auto}
   @media (min-width:560px){ .cta-row .btn{flex:0 1 auto} }
   .facts{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.93rem;font-weight:600}
   .facts li{list-style:none;display:flex;align-items:center;gap:7px}
   .facts ul{margin:0;padding:0;display:contents}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--amber-bright);flex:none}
-  .hero-stage{border-radius:24px;border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--surface);padding:8px}
-  .hero-stage img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;background:#fff}
-  .hero-caption{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-top:14px}
-  .hero-caption p{font-size:.95rem;color:var(--muted)}
-  .hero-caption strong{color:var(--ink)}
-  .hero-caption .tag{flex:none;font-size:.78rem;font-weight:900;letter-spacing:.04em;background:var(--amber-bg);color:var(--amber);border:1px solid var(--line-strong);padding:4px 9px;border-radius:999px;margin-top:2px}
+  /* Hero slideshow — product photos only, auto-advancing */
+  .hero-slides{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-lg);background:var(--surface);margin-top:26px}
+  .hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
+  .hero-slides img.active{opacity:1}
+  .hero-dots{display:flex;justify-content:center;gap:7px;margin-top:12px}
+  .hero-dots span{width:7px;height:7px;border-radius:50%;background:#d9c8a8}
+  .hero-dots span.on{background:var(--amber-bright)}
+  @media (max-width:640px){ .hero-slides{aspect-ratio:4/3} }
+  @media (prefers-reduced-motion: reduce){ .hero-slides img{transition:none} }
 
   /* ---------- Sections ---------- */
   section{padding:44px 0 6px}
@@ -222,32 +224,26 @@
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <p class="eyebrow">D.I.M. Bright Ideas LLC · Made to order in Georgia</p>
-        <h1>Bright Ideas <em>Start Here</em></h1>
-        <p class="lede">Personalized gifts made to order — tumblers, T-shirts, mugs, tote bags, keepsakes and more, each one made for <strong>the person receiving it</strong>.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="catalog/">Shop the Catalog</a>
-          <a class="btn btn-amber" href="quote-request/">Get a Quote</a>
-        </div>
-        <ul class="facts">
-          <li><span class="dot"></span>Made to order</li>
-          <li><span class="dot"></span>Personalized for one person</li>
-          <li><span class="dot"></span>Ready-to-ship 2–7 business days</li>
-          <li><span class="dot"></span>Custom 5–14 business days</li>
-        </ul>
-      </div>
-      <div>
-        <div class="hero-stage">
-          <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/20oz%20Skinny%20Tumbler%20-%20Ombre.png" alt="20oz Skinny Tumbler in Ombre, personalized" />
-        </div>
-        <div class="hero-caption">
-          <span class="tag">Bestseller</span>
-          <p><strong>20oz Skinny Tumbler — Ombre.</strong> From $17. Your name, your colors, your design — made to order.</p>
-        </div>
-      </div>
+    <p class="eyebrow">D.I.M. Bright Ideas LLC · Made to order in Georgia</p>
+    <h1>Bright Ideas <em>Start Here</em></h1>
+    <p class="lede">Personalized gifts made to order — tumblers, T-shirts, mugs, tote bags, keepsakes and more, each one made for <strong>the person receiving it</strong>.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="catalog/">Shop the Catalog</a>
+      <a class="btn btn-amber" href="quote-request/">Get a Quote</a>
     </div>
+    <a class="hero-slides" href="catalog/" aria-label="Browse the catalog">
+      <img class="active" src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/20oz%20Skinny%20Tumbler%20-%20Ombre.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Glass%20Mug.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/40oz%20Traveler%20Tumbler.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Medium%20Tote%20Bag.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Memory%20Photo%20Blanket.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Aluminum%20Business%20Cards.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Tri%20Sip%20Tumbler.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Wood%20Photo%20Panel.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Stemless%20Wine%20Tumbler.png" alt="" />
+      <img src="https://diminfomacon-beep.github.io/Mothers_Day/catalog/photos/Adult%20Polyester%20Short%20Sleeve%20T-Shirt%20-%20White.png" alt="" />
+    </a>
+    <div class="hero-dots" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
   </div>
 </header>
 
@@ -500,6 +496,22 @@
 <footer class="site-footer"><div class="wrap"><p class="foot-brand">D.I.M. Bright Ideas LLC</p><p class="foot-contact">(478) 382-0150 &bull; <a href="mailto:info@dimbrightideas.com">info@dimbrightideas.com</a><br/>Hours: Mon&ndash;Fri 9am&ndash;4pm, Sat 10am&ndash;3pm, Sun 12pm&ndash;4pm EST</p><ul><li><a href="about/">About Us</a></li><li><a href="legal-disclosures/returns-refund/">Return &amp; Refund Policy</a></li><li><a href="legal-disclosures/terms-conditions/">Terms &amp; Conditions</a></li><li><a href="legal-disclosures/privacy-security/">Privacy &amp; Security</a></li><li><a href="legal-disclosures/shipping-policy/">Shipping Policy</a></li><li><a href="contact-us/">Contact Us</a></li><li><a href="legal-disclosures/faq/">FAQ</a></li></ul><p class="foot-note">Personalized gifts made to order in Georgia, USA.</p></div></footer>
 <script>
 function toggleSiteNav(btn){var nav=btn.closest('.site-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');}
+</script>
+<script>
+/* Hero slideshow — auto-advance every 3.5s with a crossfade */
+(function(){
+  var slides=document.querySelectorAll('.hero-slides img');
+  var dots=document.querySelectorAll('.hero-dots span');
+  if(!slides.length) return;
+  var i=0;
+  setInterval(function(){
+    slides[i].classList.remove('active');
+    if(dots[i]) dots[i].classList.remove('on');
+    i=(i+1)%slides.length;
+    slides[i].classList.add('active');
+    if(dots[i]) dots[i].classList.add('on');
+  },3500);
+})();
 </script>
 </body>
 </html>
