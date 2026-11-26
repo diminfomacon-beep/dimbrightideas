@@ -156,6 +156,11 @@
     width:100%;background:var(--black);color:var(--ivory);border:1px solid var(--line);
     padding:11px 12px;font-family:inherit;font-size:1rem;min-height:48px;border-radius:0;
   }
+  .est-field input[type="text"], .est-field input[type="email"], .est-field input[type="tel"]{
+    width:100%;background:var(--black);color:var(--ivory);border:1px solid var(--line);
+    padding:11px 12px;font-family:inherit;font-size:1rem;min-height:48px;border-radius:0;box-sizing:border-box;
+  }
+  .est-field input::placeholder{color:var(--muted)}
   .est-checks{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin:6px 0 20px}
   .est-checks label{
     display:flex;gap:10px;align-items:flex-start;padding:9px 4px;cursor:pointer;
@@ -590,9 +595,24 @@
         <span class="val" id="estTotal">$25</span>
       </div>
       <p class="est-breakdown" id="estBreakdown"></p>
-      <div class="est-cta">
-        <a class="btn btn-gold" id="quoteMail" href="mailto:info@dimbrightideas.com?subject=QR%20Gift%20Experience%20—%20Quote%20Request">Request this quote by email</a>
-      </div>
+      <form id="qrQuoteForm">
+        <div class="est-field">
+          <label for="qrName">Your name</label>
+          <input id="qrName" name="name" type="text" required placeholder="Your full name" autocomplete="name">
+        </div>
+        <div class="est-field">
+          <label for="qrEmail">Email address</label>
+          <input id="qrEmail" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="est-field">
+          <label for="qrPhone">Phone number (optional)</label>
+          <input id="qrPhone" name="phone" type="tel" placeholder="Your phone number" autocomplete="tel" inputmode="numeric" pattern="[0-9]*" title="Numbers only">
+        </div>
+        <div class="est-cta">
+          <button class="btn btn-gold" type="submit" id="qrSubmitBtn">Send my QR quote request</button>
+        </div>
+        <div id="qrQuoteMsg" style="display:none"></div>
+      </form>
     </div>
   </div>
 </section>
@@ -732,7 +752,6 @@
   var extraContrib = document.getElementById('extraContrib');
   var totalEl = document.getElementById('estTotal');
   var bdEl = document.getElementById('estBreakdown');
-  var mailEl = document.getElementById('quoteMail');
 
   function money(n){ return "$" + n.toLocaleString('en-US'); }
 
@@ -758,13 +777,127 @@
     var total = discounted + enhTotal;
     totalEl.textContent = money(total);
     bdEl.textContent = lines.join("  ·  ");
-    var subject = "QR Gift Experience — Quote Request: " + exp.name;
-    var body = "Hello Dana,\n\nI would like a quote for the QR Gift Experience.\n\n" + lines.join("\n") + "\n\nEstimated total: " + money(total) + "\n\nThank you!";
-    mailEl.href = "mailto:info@dimbrightideas.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    // Keep the current quote where the submit form can read it.
+    window.QR_QUOTE = { experience: exp.name, lines: lines.slice(), total: total, breakdown: lines.join("  ·  ") };
   }
   [sel, gift, extraMin, extraContrib].forEach(function(el){ el.addEventListener('change', calc); });
   checksWrap.addEventListener('change', calc);
   calc();
+})();
+</script>
+<!-- QR quote submissions: same system as Quote Request / Gift Planning (Firebase + Apps Script + Pushover) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script>
+(function(){
+  var firebaseConfig = {
+    apiKey: "AIzaSyAFh17kO3JE1CyuH9XrqWu19RvadSEFP20",
+    authDomain: "gift-planning-form.firebaseapp.com",
+    projectId: "gift-planning-form",
+    storageBucket: "gift-planning-form.firebasestorage.app",
+    messagingSenderId: "777169863477",
+    appId: "1:777169863477:web:2fd112b16b0982dc7c427c",
+    measurementId: "G-6XL7M7Z692"
+  };
+  var db = null;
+  try {
+    if (typeof firebase !== 'undefined') {
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+    }
+  } catch (err) { console.error("Firebase init error:", err); }
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrk5yPmtqPmYs_HjBPnOJMJKg2Wnq90Z5WZeVUiEDeBcUglv-BBoBmK_CTnsA0F9KU1w/exec";
+  var PUSHOVER_URL = "https://script.google.com/macros/s/AKfycbx8J55LywCP5SefbQSuVZRR2Tv0p-kOEpJEnMewfzav0ioJsbw7Zu1qZYZK_FHMc-15/exec";
+
+  function sendToAppsScript(payload) {
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(function(err){ console.error("Apps Script error:", err); });
+  }
+  function triggerPushoverAlert(title, messageContent) {
+    fetch(PUSHOVER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ title: title, message: messageContent })
+    }).catch(function(err){ console.error("Pushover notification failed:", err); });
+  }
+  function showQrMessage(message, success) {
+    var box = document.getElementById('qrQuoteMsg');
+    if (!box) return;
+    box.style.display = "block";
+    box.style.padding = "12px";
+    box.style.borderRadius = "6px";
+    box.style.marginTop = "12px";
+    box.style.textAlign = "left";
+    if (success) {
+      box.style.background = "#e8f5e9";
+      box.style.color = "#2e7d32";
+      box.style.border = "1px solid #81c784";
+    } else {
+      box.style.background = "#ffebee";
+      box.style.color = "#c62828";
+      box.style.border = "1px solid #ef9a9a";
+    }
+    box.innerHTML = message;
+  }
+
+  // Phone: numbers only -- strip anything that is not a digit as it is typed or pasted.
+  var ph = document.getElementById('qrPhone');
+  if (ph) ph.addEventListener('input', function () {
+    var clean = ph.value.replace(/[^0-9]/g, '');
+    if (clean !== ph.value) ph.value = clean;
+  });
+
+  var form = document.getElementById('qrQuoteForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('qrSubmitBtn');
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    if (!db) {
+      showQrMessage("<strong>Sorry &mdash; the form could not load.</strong><br>Please message us on WhatsApp instead and we will help you right away.", false);
+      return;
+    }
+    btn.innerText = "Sending\u2026";
+    btn.disabled = true;
+
+    var name = document.getElementById('qrName').value.trim();
+    var email = document.getElementById('qrEmail').value.trim();
+    var phone = document.getElementById('qrPhone').value.trim();
+    var q = window.QR_QUOTE || { experience: "", lines: [], total: 0, breakdown: "" };
+    var totalText = "$" + (q.total || 0).toLocaleString('en-US');
+
+    var payload = {
+      timestamp: new Date().toISOString(),
+      customerName: name,
+      customerEmail: email,
+      customerPhone: phone,
+      experience: q.experience,
+      details: q.lines.join("  \u00b7  "),
+      estimate: totalText,
+      source: "QR Gift Experience page",
+      status: "New QR Quote Request"
+    };
+    db.collection("qr_quote_requests").add(payload)
+      .then(function(){
+        sendToAppsScript(payload);
+        triggerPushoverAlert("\uD83D\uDCA1 New QR Quote Request!", "From: " + name + "\nExperience: " + (q.experience || "\u2014") + "\nTotal: " + totalText + "\nCheck Firestore dashboard for details.");
+        showQrMessage("\u2728 <strong>Success! Your QR quote request has been sent.</strong><br><span style='font-weight:normal;font-size:.85rem;'>We\u2019ll email your quote to " + email + " within 24\u201348 business hours.</span>", true);
+        form.reset();
+        btn.innerText = "Send my QR quote request";
+        btn.disabled = false;
+        setTimeout(function(){ var m = document.getElementById('qrQuoteMsg'); if (m) m.style.display = "none"; }, 15000);
+      })
+      .catch(function(error){
+        showQrMessage("<strong>Submission failed</strong><br>" + (error && error.message ? error.message : "Please try again or message us on WhatsApp."), false);
+        console.error("QR quote submission error:", error);
+        btn.innerText = "Send my QR quote request";
+        btn.disabled = false;
+      });
+  });
 })();
 </script>
 <script>
