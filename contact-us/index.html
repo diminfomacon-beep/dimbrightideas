@@ -95,7 +95,11 @@
   .site-footer ul a{color:var(--teal);font-weight:600;font-size:.95rem;text-decoration:none}
   .site-footer ul a:hover{text-decoration:underline}
   .site-footer .foot-note{color:var(--faint);font-size:.85rem;margin:18px 0 0}
-  iframe.form-embed{width:100%;min-height:820px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  .msg-buttons{display:flex;flex-direction:column;gap:12px;margin:18px 0 6px}
+  .msg-btn{display:block;text-align:center;padding:15px 18px;border-radius:12px;font-weight:700;text-decoration:none;font-size:1.05rem}
+  .msg-btn:hover{opacity:.92}
+  .msg-whatsapp{background:#25D366;color:#fff}
+  .msg-sms{background:var(--teal);color:#fff}
   @media (max-width:640px){ .card{padding:20px} }
 </style>
 </head>
@@ -116,10 +120,13 @@
     <p>We respond within 24&ndash;48 business hours. For a custom order, you can also start in the <a href="../design-studio/">Design Studio</a> or send a <a href="../quote-request/">quote request</a>.</p>
   </div>
   <div class="card">
-    <h2>Send us a message</h2>
-    <p>Use the form below for general inquiries, custom requests, or questions about an order.</p>
-    <iframe class="form-embed" src="https://docs.google.com/forms/d/e/1FAIpQLSc7HIx-L-_xxnbiN3W2y8Y8nVgFdLrc7t3-u0yfXzt8A_cdvQ/viewform?embedded=true" title="Contact form">Loading&hellip;</iframe>
-    <p style="margin-top:12px"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc7HIx-L-_xxnbiN3W2y8Y8nVgFdLrc7t3-u0yfXzt8A_cdvQ/viewform" target="_blank" rel="noopener">Open the form in a new tab &rarr;</a></p>
+    <h2>Message us</h2>
+    <p>Tap below to message us directly &mdash; no form to fill in. For general inquiries, custom requests, or questions about an order.</p>
+    <div class="msg-buttons">
+      <a class="msg-btn msg-whatsapp" href="https://wa.me/14783820150?text=Hi%20D.I.M.%20Bright%20Ideas!">Message us on WhatsApp</a>
+      <a class="msg-btn msg-sms" href="sms:+14783820150?&amp;body=Hi%20D.I.M.%20Bright%20Ideas!">Send us a text (SMS)</a>
+    </div>
+    <p>We respond within 24&ndash;48 business hours.</p>
   </div>
 </div>
 </main>
