@@ -68,7 +68,7 @@
             <label>Destination:</label>
            <select id="ship-region" onchange="renderMasterCart()" class="input-style">
                 <option value="US">United States ($9.50)</option>
-                <option value="CA">Canada (Calculated at Checkout)</option> <option value="INTL">International (Calculated at Checkout)</option>
+                <option value="CA">Canada (Calculated at Checkout)</option> <option value="INTL">International (Calculated at Checkout)</option> <option value="JA">Jamaica (Calculated at Checkout)</option>
             </select>
         </div>
 
@@ -198,6 +198,11 @@
                     if (totalQty >= 8) shippingCost = 75.00;
                     else if (totalQty >= 4) shippingCost = 40.00;
                     else shippingCost = 25.00;
+                } else if (selectedRegion === "JA") {
+                    if (totalQty >= 13) shippingCost = 150.00;
+                    else if (totalQty >= 8) shippingCost = 35.00;
+                    else if (totalQty >= 4) shippingCost = 20.00;
+                    else shippingCost = 15.00;
                 } else {
                     if (totalQty >= 8) shippingCost = 135.00;
                     else if (totalQty >= 4) shippingCost = 95.00;
