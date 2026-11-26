@@ -518,7 +518,7 @@
               </div>
               <div class="field">
                 <label for="f-phone">Phone <span class="opt">(optional)</span></label>
-                <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. (478) 555-0123" />
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. (478) 555-0123" inputmode="numeric" pattern="[0-9]*" title="Numbers only" />
               </div>
             </div>
             <div class="field">
@@ -689,10 +689,19 @@
           });
         }
 
+        // Phone: numbers only -- strip anything that is not a digit as it is typed or pasted.
+        (function () {
+          var ph = document.getElementById('f-phone');
+          if (ph) ph.addEventListener('input', function () {
+            var clean = ph.value.replace(/[^0-9]/g, '');
+            if (clean !== ph.value) ph.value = clean;
+          });
+        })();
         document.getElementById('quoteForm').addEventListener('submit', function(e){
           e.preventDefault();
           var btn = document.getElementById('quoteSubmitBtn');
           var form = e.target;
+          if (!form.checkValidity()) { form.reportValidity(); return; }
           if (!db) {
             showQuoteMessage("<strong>Sorry \u2014 the form could not load.</strong><br>Please message us on WhatsApp instead and we will help you right away.", false);
             return;
