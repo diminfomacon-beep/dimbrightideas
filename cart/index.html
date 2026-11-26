@@ -67,9 +67,10 @@
         <div id="shipping-options" style="display:none; margin-top:10px; padding-left: 20px;">
             <label>Destination:</label>
            <select id="ship-region" onchange="renderMasterCart()" class="input-style">
-                <option value="US">United States ($9.50)</option>
+                <option value="US">United States (Calculated at Checkout)</option>
                 <option value="CA">Canada (Calculated at Checkout)</option> <option value="INTL">International (Calculated at Checkout)</option> <option value="JA">Jamaica (Calculated at Checkout)</option>
             </select>
+            <div id="intl-shipping-note" style="display:none; margin-top:8px; font-size:13px; color:#7a5a00;">International shipping will take longer than 14 days due to freight and customs clearing.</div>
         </div>
 
         <h3>Enter Discount Code</h3>
@@ -193,9 +194,13 @@
             if (deliveryType === 'shipping') {
                 document.getElementById('shipping-options').style.display = 'block';
                 if (selectedRegion === "US") {
-                    shippingCost = 9.50;
+                    if (totalQty >= 13) shippingCost = 45.00;
+                    else if (totalQty >= 8) shippingCost = 25.00;
+                    else if (totalQty >= 4) shippingCost = 15.00;
+                    else shippingCost = 9.50;
                 } else if (selectedRegion === "CA") {
-                    if (totalQty >= 8) shippingCost = 75.00;
+                    if (totalQty >= 13) shippingCost = 150.00;
+                    else if (totalQty >= 8) shippingCost = 75.00;
                     else if (totalQty >= 4) shippingCost = 40.00;
                     else shippingCost = 25.00;
                 } else if (selectedRegion === "JA") {
@@ -204,13 +209,17 @@
                     else if (totalQty >= 4) shippingCost = 20.00;
                     else shippingCost = 15.00;
                 } else {
-                    if (totalQty >= 8) shippingCost = 135.00;
+                    if (totalQty >= 13) shippingCost = 250.00;
+                    else if (totalQty >= 8) shippingCost = 135.00;
                     else if (totalQty >= 4) shippingCost = 95.00;
                     else shippingCost = 65.00;
                 }
             } else {
                 document.getElementById('shipping-options').style.display = 'none';
             }
+            // International shipping takes longer than 14 days (freight + customs).
+            var intlNote = document.getElementById('intl-shipping-note');
+            if (intlNote) intlNote.style.display = (deliveryType === 'shipping' && selectedRegion !== 'US') ? 'block' : 'none';
 
             const subtotalAfterDiscount = baseTotal - promoDiscount;
             const tax = subtotalAfterDiscount * 0.04;
