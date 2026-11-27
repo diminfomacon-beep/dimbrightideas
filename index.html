@@ -135,11 +135,15 @@
   .feature-dark .cta-row{margin:22px 0 0}
   .feature-dark .facts{color:#cfe0d8}
   .feature-dark .facts .dot{background:#f2b13c}
+  .feature-qr{display:grid;gap:24px;align-items:center}
+  @media (min-width:820px){ .feature-qr{grid-template-columns:1fr 320px} }
+  .feature-qr .feature-img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px}
 
   /* ---------- Two-col cards (gift planning) ---------- */
   .duo{display:grid;gap:20px}
   @media (min-width:820px){ .duo{grid-template-columns:1fr 1fr} }
   .duo-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .duo-card .card-img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:calc(var(--radius) - 6px);margin:0 0 18px}
   .duo-card .fee{font-family:"DM Serif Display", Georgia, serif;font-size:1.6rem;color:var(--brown);margin:0 0 4px}
   .duo-card h3{margin:0 0 8px}
   .duo-card p{color:var(--muted);font-size:.97rem;margin:0 0 16px}
@@ -320,7 +324,8 @@
 <!-- ============ QR GIFT EXPERIENCE ============ -->
 <section>
   <div class="wrap">
-    <div class="feature-dark">
+    <div class="feature-dark feature-qr">
+      <div>
       <p class="kicker">The QR Gift Experience</p>
       <h2>Turn a simple gift into a <em>lasting memory</em></h2>
       <p style="max-width:36rem;margin-top:10px">A beautiful physical gift, paired with a private page only its recipient can open — your words, your voice, your video, your photographs — revealed with a single scan.</p>
@@ -333,6 +338,8 @@
         <li><span class="dot"></span>20% courtesy savings with any physical D.I.M. gift</li>
         <li><span class="dot"></span>Ready in 3–5 business days</li>
       </ul>
+      </div>
+      <img class="feature-img" src="photos/qr-gift-experience-v2.jpg" alt="A black gift box with a gold ribbon and a QR code, with a phone scanning it" loading="lazy">
     </div>
   </div>
 </section>
@@ -347,6 +354,7 @@
     </div>
     <div class="duo">
       <div class="duo-card">
+        <img class="card-img" src="photos/gift-planning-individual-v2.jpg" alt="An open notebook planning individual gifts" loading="lazy">
         <p class="fee">$20 planning fee</p>
         <h3>Individual Gift Planning</h3>
         <p>One thoughtful gift for one special person — birthdays, Mother's Day, graduations, just because.</p>
@@ -358,6 +366,7 @@
         <a class="btn btn-primary" href="gift-planning/">Plan My Gift</a>
       </div>
       <div class="duo-card">
+        <img class="card-img" src="photos/gift-planning-corporate.jpg" alt="Boxes ready for corporate and bulk orders" loading="lazy">
         <p class="fee">$50 design deposit</p>
         <h3>Corporate &amp; Bulk Orders</h3>
         <p>Branded gifts for teams, clients, and events — business cards, totes, tumblers, appreciation gifts.</p>
