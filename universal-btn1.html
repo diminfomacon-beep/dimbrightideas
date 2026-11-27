@@ -105,6 +105,12 @@
     const basePrice = parseFloat(params.get('price')) || 0.00;
     const rawVars = params.get('vars') || "";
 
+    // Hide the Add to Bundle button when the page asks for it (e.g. Christmas gift guide).
+    if (params.get('nobundle')) {
+        var bundleBtn = document.getElementById('bundle-btn');
+        if (bundleBtn) bundleBtn.style.display = 'none';
+    }
+
     const dropdownContainer = document.getElementById('dynamic-dropdowns-container');
     
     if (rawVars.trim() !== "") {

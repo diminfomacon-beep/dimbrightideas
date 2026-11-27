@@ -55,9 +55,31 @@
 .floating-cart { position:fixed; right:16px; bottom:16px; z-index:100; width:76px; height:76px; border-radius:50%; background:#0e4d42; box-shadow:0 4px 14px rgba(0,0,0,.30); display:flex; align-items:center; justify-content:center; text-decoration:none; }
 .floating-cart img { width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; }
 .floating-cart-count { position:absolute; top:-4px; right:-4px; min-width:24px; height:24px; padding:0 6px; border-radius:999px; background:#c1272d; color:#fff; font-weight:700; font-size:.85rem; display:flex; align-items:center; justify-content:center; }
+/* Site nav (same as catalog/cart) — kept in the build script so rebuilds keep the hamburger menu. */
+.site-nav{background:#fffefb;border-bottom:1px solid #e9ddc9;position:sticky;top:0;z-index:50}
+.site-nav .wrap{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:#0a3a32;text-decoration:none;white-space:nowrap;margin-right:auto}
+.site-nav .brand b{color:#b45309}
+.site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
+.site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:#1b2a25;font-weight:600;font-size:.93rem;font-family:"DM Sans", system-ui, sans-serif}
+.site-nav ul a:hover{background:#e3efe9;color:#0a3a32}
+.site-nav ul a.active{background:#0e4d42;color:#fff}
+.site-nav .nav-toggle{display:none}
+@media (max-width: 768px){
+.site-nav .wrap{flex-wrap:wrap;justify-content:flex-start}
+.site-nav .nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:none;border:none;color:#0e4d42;font-size:1.5rem;line-height:1;padding:6px 10px;cursor:pointer;order:-1}
+.site-nav .brand{margin-right:0}
+.site-nav ul{display:none}
+.site-nav.open ul{display:flex;flex-direction:column;width:100%;gap:2px}
+.site-nav.open ul a{display:block;text-align:left}
+}
 </style>
 </head>
 <body>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../">D.I.M. <b>Bright Ideas</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" onclick="toggleSiteNav(this)">☰</button><ul><li><a href="../">Home</a></li><li><a href="../catalog/">Catalog</a></li><li><a href="../holiday/christmas/">Christmas Gift Guide</a></li><li><a href="../grab-and-go/" class="active">Grab &amp; Go</a></li><li><a href="../gift-planning/">Gift Planning</a></li><li><a href="../quote-request/">Quote Request</a></li><li><a href="../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../blog/">Blog</a></li><li><a href="../gallery-reviews/">Gallery &amp; Reviews</a></li><li><a href="../design-studio/">Design Studio</a></li><li><a href="../cart/">Cart</a></li><li><a href="../contact-us/">Contact Us</a></li></ul></div></nav>
+<script>
+function toggleSiteNav(btn){var nav=btn.closest('.site-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');}
+</script>
 <header>
   <p class="eyebrow">D.I.M. Bright Ideas LLC</p>
   <h1>Grab &amp; Go</h1>
@@ -414,11 +436,11 @@ fetch(SHEET_CSV + '&t=' + Date.now())
   function updateFloatingCart() {
     var n = 0;
     try {
+      // Only items actually in the cart count. A staged bundle (my_custom_bundle)
+      // does not count until it is locked in, and a locked-in bundle is a single
+      // "Bundle Pack" line item in final_shopping_cart, so it counts as 1.
       var s = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
-      var b = JSON.parse(localStorage.getItem('my_bundle')) || [];
-      var c = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
       s.forEach(function (i) { n += (i.qty || 1); });
-      n += b.length + c.length;
     } catch (e) { /* cart not readable yet */ }
     var el = document.getElementById('floating-cart-count');
     if (el) { el.textContent = n; el.style.display = n > 0 ? 'flex' : 'none'; }
