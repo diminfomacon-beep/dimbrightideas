@@ -211,7 +211,8 @@ function watchButtons() {
         fr.setAttribute('data-photo-attached', '1');
         var sync = function () { tryVariationPhoto(card, display, menu.value); };
         menu.addEventListener('change', sync);
-        sync();
+        // No sync() on load: the card keeps its base product photo (the image
+        // named as the product itself) until the customer picks a variation.
       } catch (e) { /* button not readable yet; photo stays on the main one */ }
     };
     fr.addEventListener('load', attach);
