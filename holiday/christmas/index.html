@@ -50,30 +50,13 @@
 .lb-next { right:10px; }
 .lb-cap { position:absolute; bottom:56px; left:50%; transform:translateX(-50%); color:#fff; font-size:15px; text-align:center; max-width:92vw; text-shadow:0 1px 4px rgba(0,0,0,.7); }
 .lb-count { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); color:#fff; font-size:14px; background:rgba(0,0,0,.5); padding:6px 14px; border-radius:999px; }
-</style>
-<style>
-  /* site nav (same as home page) */
-  .site-nav{background:#fffefb;border-bottom:1px solid #e9ddc9;position:sticky;top:0;z-index:50}
-  .site-nav .wrap{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-  .site-nav .brand{font-family:"DM Serif Display", Georgia, serif;font-size:1.15rem;color:#0a3a32;text-decoration:none;white-space:nowrap;margin-right:auto}
-  .site-nav .brand b{color:#b45309}
-  .site-nav ul{display:flex;flex-wrap:wrap;gap:4px 2px;list-style:none;margin:0;padding:0}
-  .site-nav ul a{display:block;padding:7px 10px;border-radius:999px;text-decoration:none;color:#1b2a25;font-weight:600;font-size:.93rem;font-family:"DM Sans", system-ui, sans-serif}
-  .site-nav ul a:hover{background:#e3efe9;color:#0a3a32}
-  .site-nav ul a.active{background:#0e4d42;color:#fff}
-  .site-nav .nav-toggle{display:none}
-  @media (max-width: 768px){
-    .site-nav .wrap{flex-wrap:wrap;justify-content:flex-start}
-    .site-nav .nav-toggle{display:inline-flex;align-items:center;justify-content:center;background:none;border:none;color:#0e4d42;font-size:1.5rem;line-height:1;padding:6px 10px;cursor:pointer;order:-1}
-    .site-nav .brand{margin-right:0}
-    .site-nav ul{display:none}
-    .site-nav.open ul{display:flex;flex-direction:column;width:100%;gap:2px}
-    .site-nav.open ul a{display:block;text-align:left}
-  }
+/* Floating cart button: Dimmi in a solid teal circle, stays on screen while scrolling. */
+.floating-cart { position:fixed; right:16px; bottom:16px; z-index:100; width:76px; height:76px; border-radius:50%; background:#0e4d42; box-shadow:0 4px 14px rgba(0,0,0,.30); display:flex; align-items:center; justify-content:center; text-decoration:none; }
+.floating-cart img { width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; }
+.floating-cart-count { position:absolute; top:-4px; right:-4px; min-width:24px; height:24px; padding:0 6px; border-radius:999px; background:#c1272d; color:#fff; font-weight:700; font-size:.85rem; display:flex; align-items:center; justify-content:center; }
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="../../">D.I.M. <b>Bright Ideas</b></a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" onclick="toggleSiteNav(this)">☰</button><ul><li><a href="../../">Home</a></li><li><a href="../../catalog/">Catalog</a></li><li><a href="../../holiday/christmas/" class="active">Christmas Gift Guide</a></li><li><a href="../../grab-and-go/">Grab & Go</a></li><li><a href="../../gift-planning/">Gift Planning</a></li><li><a href="../../quote-request/">Quote Request</a></li><li><a href="../../qr-gift-experience/">QR Gift Experience</a></li><li><a href="../../blog/">Blog</a></li><li><a href="../../gallery-reviews/">Gallery & Reviews</a></li><li><a href="../../design-studio/">Design Studio</a></li><li><a href="../../cart/">Cart</a></li><li><a href="../../contact-us/">Contact Us</a></li></ul></div></nav>
 <div class="scene" aria-hidden="true"><svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMax slice">
 <defs>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe6f7"/><stop offset="1" stop-color="#f6fbff"/></linearGradient>
@@ -113,33 +96,21 @@
 </header>
 <div class="bar">
   <span class="updated" id="updated">Prices load live from our price sheet.</span>
-  <a href="../../checkout.html">View Cart &rarr;</a>
+  <a href="https://www.dimbrightideas.com/cart" target="_blank" rel="noopener">View Cart &rarr;</a>
 </div>
 <p class="intro">Limited quantities available on Christmas items.<br><strong>Christmas ordering closes Friday, Dec 11, 2026</strong> — order early, these are ready to go!</p>
 <main id="christmas">
-<h2 class="section">Christmas Drinkware</h2><div class="grid"><article class="card" data-sheet="30oz Christmas Mint Grippy"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/30oz%20Christmas%20Mint%20Grippy.jpeg" data-ext="0" onerror="imgFallback(this)" alt="30oz Christmas Mint Grippy" loading="lazy"><h3>30oz Christmas Mint Grippy</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$33</p><div class="btn-slot"><iframe title="Order 30oz Christmas Mint Grippy" src="https://dimbrightideas.com/grab-and-go-btn.html?name=30oz_Christmas_Mint_Grippy&amp;price=33&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Pink Christmas Glass"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/20oz%20Pink%20Christmas%20Glass.jpeg" data-ext="0" onerror="imgFallback(this)" alt="20oz Pink Christmas Glass" loading="lazy"><h3>20oz Pink Christmas Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Pink Christmas Glass" src="https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Pink_Christmas_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="35oz Glitter Christmas"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/35oz%20Glitter%20Christmas.jpeg" data-ext="0" onerror="imgFallback(this)" alt="35oz Glitter Christmas" loading="lazy"><h3>35oz Glitter Christmas</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$32</p><div class="btn-slot"><iframe title="Order 35oz Glitter Christmas" src="https://dimbrightideas.com/grab-and-go-btn.html?name=35oz_Glitter_Christmas&amp;price=32&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="18oz  Christmas Glow Wine Glass"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/18oz%20Christmas%20Glow%20Wine%20Glass.jpeg" data-ext="0" onerror="imgFallback(this)" alt="18oz Christmas Glow Wine Glass" loading="lazy"><h3>18oz Christmas Glow Wine Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 18oz Christmas Glow Wine Glass" src="https://dimbrightideas.com/grab-and-go-btn.html?name=18oz__Christmas_Glow_Wine_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="30oz Christmas Trio Traveler"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/30oz%20Christmas%20Trio%20Traveler.jpeg" data-ext="0" onerror="imgFallback(this)" alt="30oz Christmas Trio Traveler" loading="lazy"><h3>30oz Christmas Trio Traveler</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$35</p><div class="btn-slot"><iframe title="Order 30oz Christmas Trio Traveler" src="https://dimbrightideas.com/grab-and-go-btn.html?name=30oz_Christmas_Trio_Traveler&amp;price=35&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Christmas Glass"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/20oz%20Christmas%20Glass.jpeg" data-ext="0" onerror="imgFallback(this)" alt="20oz Christmas Glass" loading="lazy"><h3>20oz Christmas Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Christmas Glass" src="https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Christmas_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Christmas Storyboard"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/20oz%20Christmas%20Storyboard.jpeg" data-ext="0" onerror="imgFallback(this)" alt="20oz Christmas Storyboard" loading="lazy"><h3>20oz Christmas Storyboard</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Christmas Storyboard" src="https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Christmas_Storyboard&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article></div><h2 class="section">Christmas Keepsakes</h2><div class="grid"><article class="card" data-sheet="Personalized Double Sided Ornaments"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/Personalized%20Double%20Sided%20Ornaments.png" data-ext="0" onerror="imgFallback(this)" alt="Personalized Double Sided Ornaments" loading="lazy"><h3>Personalized Double Sided Ornaments</h3><p class="price">$5</p><div class="btn-slot"><iframe title="Order Personalized Double Sided Ornaments" src="https://dimbrightideas.com/universal-btn1.html?name=Personalized_Double_Sided_Ornaments&amp;price=5&amp;vars=" style="height:230px" loading="lazy"></iframe></div></article><article class="card" data-sheet="Christmas Photo Panel - 8&quot; x 10&quot;"><img class="prod-img" src="https://diminfomacon-beep.github.io/dimbrightideas/photos/Christmas%20Photo%20Panel%20-%208%20x%2010.png" data-ext="1" onerror="imgFallback(this)" alt="Christmas Photo Panel - 8&quot; x 10&quot;" loading="lazy"><h3>Christmas Photo Panel - 8&quot; x 10&quot;</h3><p class="price">$10</p><div class="btn-slot"><iframe title="Order Christmas Photo Panel - 8&quot; x 10&quot;" src="https://dimbrightideas.com/universal-btn1.html?name=Christmas_Photo_Panel_-_8%22_x_10%22&amp;price=10&amp;vars=" style="height:230px" loading="lazy"></iframe></div></article></div>
+<h2 class="section">Christmas Drinkware</h2><div class="grid"><article class="card" data-sheet="30oz Christmas Mint Grippy"><img class="prod-img" src="photos/30oz%20Christmas%20Mint%20Grippy.jpg" data-ext="0" onerror="imgFallback(this)" alt="30oz Christmas Mint Grippy" loading="lazy"><h3>30oz Christmas Mint Grippy</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$33</p><div class="btn-slot"><iframe title="Order 30oz Christmas Mint Grippy" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=30oz_Christmas_Mint_Grippy&amp;price=33&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Pink Christmas Glass"><img class="prod-img" src="photos/20oz%20Pink%20Christmas%20Glass.jpg" data-ext="0" onerror="imgFallback(this)" alt="20oz Pink Christmas Glass" loading="lazy"><h3>20oz Pink Christmas Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Pink Christmas Glass" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Pink_Christmas_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="35oz Glitter Christmas"><img class="prod-img" src="photos/35oz%20Glitter%20Christmas.jpg" data-ext="0" onerror="imgFallback(this)" alt="35oz Glitter Christmas" loading="lazy"><h3>35oz Glitter Christmas</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$32</p><div class="btn-slot"><iframe title="Order 35oz Glitter Christmas" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=35oz_Glitter_Christmas&amp;price=32&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="18oz  Christmas Glow Wine Glass"><img class="prod-img" src="photos/18oz%20Christmas%20Glow%20Wine%20Glass.jpg" data-ext="0" onerror="imgFallback(this)" alt="18oz Christmas Glow Wine Glass" loading="lazy"><h3>18oz Christmas Glow Wine Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 18oz Christmas Glow Wine Glass" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=18oz__Christmas_Glow_Wine_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="30oz Christmas Trio Traveler"><img class="prod-img" src="photos/30oz%20Christmas%20Trio%20Traveler.jpg" data-ext="0" onerror="imgFallback(this)" alt="30oz Christmas Trio Traveler" loading="lazy"><h3>30oz Christmas Trio Traveler</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$35</p><div class="btn-slot"><iframe title="Order 30oz Christmas Trio Traveler" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=30oz_Christmas_Trio_Traveler&amp;price=35&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Christmas Glass"><img class="prod-img" src="photos/20oz%20Christmas%20Glass.jpg" data-ext="0" onerror="imgFallback(this)" alt="20oz Christmas Glass" loading="lazy"><h3>20oz Christmas Glass</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Christmas Glass" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Christmas_Glass&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article><article class="card" data-sheet="20oz Christmas Storyboard"><img class="prod-img" src="photos/20oz%20Christmas%20Storyboard.jpg" data-ext="0" onerror="imgFallback(this)" alt="20oz Christmas Storyboard" loading="lazy"><h3>20oz Christmas Storyboard</h3><p class="ready">Ready to Ship/Pickup</p><p class="price">$25</p><div class="btn-slot"><iframe title="Order 20oz Christmas Storyboard" src="https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Christmas_Storyboard&amp;price=25&amp;vars=" style="height:110px" loading="lazy"></iframe></div></article></div><h2 class="section">Christmas Keepsakes</h2><div class="grid"><article class="card" data-sheet="Personalized Double Sided Ornaments"><img class="prod-img" src="photos/Personalized%20Double%20Sided%20Ornaments.jpg" data-ext="0" onerror="imgFallback(this)" alt="Personalized Double Sided Ornaments" loading="lazy"><h3>Personalized Double Sided Ornaments</h3><p class="price">$5</p><div class="btn-slot"><iframe title="Order Personalized Double Sided Ornaments" src="https://diminfomacon-beep.github.io/Mothers_Day/universal-btn1.html?name=Personalized_Double_Sided_Ornaments&amp;price=5&amp;vars=" style="height:230px" loading="lazy"></iframe></div></article><article class="card" data-sheet="Christmas Photo Panel - 8&quot; x 10&quot;"><img class="prod-img" src="photos/Christmas%20Photo%20Panel%20-%208%20x%2010%20%282%29.png" data-ext="1" onerror="imgFallback(this)" alt="Christmas Photo Panel - 8&quot; x 10&quot;" loading="lazy"><h3>Christmas Photo Panel - 8&quot; x 10&quot;</h3><p class="price">$10</p><div class="btn-slot"><iframe title="Order Christmas Photo Panel - 8&quot; x 10&quot;" src="https://diminfomacon-beep.github.io/Mothers_Day/universal-btn1.html?name=Christmas_Photo_Panel_-_8%22_x_10%22&amp;price=10&amp;vars=" style="height:230px" loading="lazy"></iframe></div></article></div>
 </main>
-<div class="cta">Don&rsquo;t see what you want? Let&rsquo;s create your customized experience.<br><a href="../../catalog/">Shop our Catalog &rarr;</a></div>
+<div class="cta">Don&rsquo;t see what you want? Let&rsquo;s create your customized experience.<br><a href="https://www.dimbrightideas.com/catalog" target="_blank" rel="noopener">Shop our Catalog &rarr;</a></div>
 <footer>Questions? Email info@dimbrightideas.com or text (478) 382-0150 &middot; Prices update automatically when our price sheet changes.</footer>
 <script>
 var SHEET_CSV = "https://docs.google.com/spreadsheets/d/1prGR7MNbp5MwnfMUmxD96BmvrHl-QKC-u90zQffflow/gviz/tq?tqx=out:csv&sheet=Premade%20Simple%20Buttons";
-var FALLBACK = [{"n": "30oz Christmas Mint Grippy", "p": 33.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=30oz_Christmas_Mint_Grippy&price=33&vars=", "v": false}, {"n": "20oz Pink Christmas Glass", "p": 25.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Pink_Christmas_Glass&price=25&vars=", "v": false}, {"n": "35oz Glitter Christmas", "p": 32.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=35oz_Glitter_Christmas&price=32&vars=", "v": false}, {"n": "18oz  Christmas Glow Wine Glass", "p": 25.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=18oz__Christmas_Glow_Wine_Glass&price=25&vars=", "v": false}, {"n": "30oz Christmas Trio Traveler", "p": 35.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=30oz_Christmas_Trio_Traveler&price=35&vars=", "v": false}, {"n": "20oz Christmas Glass", "p": 25.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Christmas_Glass&price=25&vars=", "v": false}, {"n": "20oz Christmas Storyboard", "p": 25.0, "u": "https://dimbrightideas.com/grab-and-go-btn.html?name=20oz_Christmas_Storyboard&price=25&vars=", "v": false}, {"n": "Personalized Double Sided Ornaments", "p": 5.0, "u": "https://dimbrightideas.com/universal-btn1.html?name=Personalized_Double_Sided_Ornaments&price=5&vars=", "v": false}, {"n": "Christmas Photo Panel - 8\" x 10\"", "p": 10.0, "u": "https://dimbrightideas.com/universal-btn1.html?name=Christmas_Photo_Panel_-_8%22_x_10%22&price=10&vars=", "v": false}];
-var MAPS = {"names": {"18oz  Christmas Glow Wine Glass": "18oz Christmas Glow Wine Glass"}, "sections": [["Christmas Drinkware", ["30oz Christmas Mint Grippy", "20oz Pink Christmas Glass", "35oz Glitter Christmas", "18oz  Christmas Glow Wine Glass", "30oz Christmas Trio Traveler", "20oz Christmas Glass", "20oz Christmas Storyboard"]], ["Christmas Keepsakes", ["Personalized Double Sided Ornaments", "Christmas Photo Panel - 8\" x 10\""]]], "page": ["18oz  Christmas Glow Wine Glass", "20oz Christmas Glass", "20oz Christmas Storyboard", "20oz Pink Christmas Glass", "30oz Christmas Mint Grippy", "30oz Christmas Trio Traveler", "35oz Glitter Christmas", "Christmas Photo Panel - 8\" x 10\"", "Personalized Double Sided Ornaments"], "photos": {"Christmas Photo Panel - 8\" x 10\"": "Christmas Photo Panel - 8 x 10.png"}};
+var FALLBACK = [{"n": "30oz Christmas Mint Grippy", "p": 33.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=30oz_Christmas_Mint_Grippy&price=33&vars=", "v": false}, {"n": "20oz Pink Christmas Glass", "p": 25.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Pink_Christmas_Glass&price=25&vars=", "v": false}, {"n": "35oz Glitter Christmas", "p": 32.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=35oz_Glitter_Christmas&price=32&vars=", "v": false}, {"n": "18oz  Christmas Glow Wine Glass", "p": 25.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=18oz__Christmas_Glow_Wine_Glass&price=25&vars=", "v": false}, {"n": "30oz Christmas Trio Traveler", "p": 35.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=30oz_Christmas_Trio_Traveler&price=35&vars=", "v": false}, {"n": "20oz Christmas Glass", "p": 25.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Christmas_Glass&price=25&vars=", "v": false}, {"n": "20oz Christmas Storyboard", "p": 25.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/grab-and-go-btn.html?name=20oz_Christmas_Storyboard&price=25&vars=", "v": false}, {"n": "Personalized Double Sided Ornaments", "p": 5.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/universal-btn1.html?name=Personalized_Double_Sided_Ornaments&price=5&vars=", "v": false}, {"n": "Christmas Photo Panel - 8\" x 10\"", "p": 10.0, "u": "https://diminfomacon-beep.github.io/Mothers_Day/universal-btn1.html?name=Christmas_Photo_Panel_-_8%22_x_10%22&price=10&vars=", "v": false}];
+var MAPS = {"names": {"18oz  Christmas Glow Wine Glass": "18oz Christmas Glow Wine Glass"}, "sections": [["Christmas Drinkware", ["30oz Christmas Mint Grippy", "20oz Pink Christmas Glass", "35oz Glitter Christmas", "18oz  Christmas Glow Wine Glass", "30oz Christmas Trio Traveler", "20oz Christmas Glass", "20oz Christmas Storyboard"]], ["Christmas Keepsakes", ["Personalized Double Sided Ornaments", "Christmas Photo Panel - 8\" x 10\""]]], "page": ["18oz  Christmas Glow Wine Glass", "20oz Christmas Glass", "20oz Christmas Storyboard", "20oz Pink Christmas Glass", "30oz Christmas Mint Grippy", "30oz Christmas Trio Traveler", "35oz Glitter Christmas", "Christmas Photo Panel - 8\" x 10\"", "Personalized Double Sided Ornaments"], "photos": {"Christmas Photo Panel - 8\" x 10\"": "Christmas Photo Panel - 8 x 10 (2).png"}};
 var SECTIONS = MAPS.sections;
 var NAME_MAP = MAPS.names, PAGE = MAPS.page, PHOTO_MAP = MAPS.photos;
-var PERSONALIZED = ['Personalized Double Sided Ornaments', 'Christmas Photo Panel - 8\" x 10\"']; // need a photo upload, not Grab & Go
-var NEW_PHOTO_BASE = 'https://diminfomacon-beep.github.io/dimbrightideas/photos/';
-var OLD_PHOTO_BASE = 'https://diminfomacon-beep.github.io/Mothers_Day/holiday/christmas/photos/';
-// Drinkware photos now in the shared photos/ folder (real files are .jpeg).
-var NEW_PHOTOS = {'20oz Christmas Glass.jpeg':1,'30oz Christmas Mint Grippy.jpeg':1,'35oz Glitter Christmas.jpeg':1,'20oz Pink Christmas Glass.jpeg':1,'18oz Christmas Glow Wine Glass.jpeg':1,'30oz Christmas Trio Traveler.jpeg':1,'20oz Christmas Storyboard.jpeg':1,'Personalized Double Sided Ornaments.png':1,'Christmas Photo Panel - 8 x 10.png':1};
-function photoBaseFor(file){ return NEW_PHOTOS[file] ? NEW_PHOTO_BASE : OLD_PHOTO_BASE; }
-function photoURL(file){ return photoBaseFor(file) + encodeURIComponent(file); }
-function mainPhotoFile(display){
-  if (PHOTO_MAP[display]) return PHOTO_MAP[display];
-  if (NEW_PHOTOS[display + '.jpeg']) return display + '.jpeg';
-  if (NEW_PHOTOS[display + '.png']) return display + '.png';
-  return display + '.jpg';
-}
+var PERSONALIZED = ['Personalized Double Sided Ornaments', 'Christmas Photo Panel - 8" x 10"']; // need a photo upload, not Grab & Go
 
 (function snow() {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -194,10 +165,10 @@ function priceText(p, hasVars) {
 
 function cardHTML(p) {
   var display = NAME_MAP[p.n] || p.n;
-  var photo = mainPhotoFile(display);
+  var photo = PHOTO_MAP[display] || (display + '.jpg');
   var ext = photo.split('.').pop().toLowerCase();
   var extIdx = ({jpg:0, png:1, jpeg:2})[ext] || 0;
-  var img = photoURL(photo);
+  var img = 'photos/' + encodeURIComponent(photo);
   var imgTag = '<img class="prod-img" src="' + img + '" data-ext="' + extIdx + '" onerror="imgFallback(this)" alt="' + display.replace(/"/g,'&quot;') + '" loading="lazy">';
   var isPersonalized = PERSONALIZED.indexOf(p.n) !== -1;
   var height = isPersonalized ? 230 : (p.v ? 170 : 110);
@@ -221,8 +192,8 @@ function pickVisualMenu(menus) {
 function tryVariationPhoto(card, display, value) {
   var img = card.querySelector('.prod-img');
   if (!img) return;
-  var base = photoBaseFor(display + ' - ' + value + '.jpg') + encodeURIComponent(display + ' - ' + value);
-  var main = photoURL(mainPhotoFile(display));
+  var base = 'photos/' + encodeURIComponent(display + ' - ' + value);
+  var main = 'photos/' + encodeURIComponent(display) + '.jpg';
   var exts = ['jpg', 'png', 'jpeg'];
   var token = parseInt(card.getAttribute('data-photo-token') || '0', 10) + 1;
   card.setAttribute('data-photo-token', token);
@@ -322,9 +293,6 @@ fetch(SHEET_CSV + '&t=' + Date.now())
     if (rows.length) render(rows, true);
   })
   .catch(function () { /* keep the saved-price fallback */ });
-</script>
-<script>
-function toggleSiteNav(btn){var nav=btn.closest('.site-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');}
 </script>
 <script>
 // ---- Product photo lightbox: tap a photo to enlarge, swipe through that product's photos ----
@@ -458,6 +426,26 @@ function toggleSiteNav(btn){var nav=btn.closest('.site-nav');if(!nav)return;var 
     if (Math.abs(dx) > 40) { if (dx < 0) lbShow(LB.idx + 1); else lbShow(LB.idx - 1); }
     x0 = null;
   }, { passive: true });
+})();
+</script>
+<a class="floating-cart" href="../../cart/" aria-label="View your cart"><img src="https://dimbrightideas.com/photos/dimmi-shopping-cart.jpg" alt="Dimmi pushing a shopping cart"><span class="floating-cart-count" id="floating-cart-count" style="display:none">0</span></a>
+<script>
+// ---- Floating cart button: live item count, links to the cart ----
+(function () {
+  function updateFloatingCart() {
+    var n = 0;
+    try {
+      var s = JSON.parse(localStorage.getItem('final_shopping_cart')) || [];
+      var b = JSON.parse(localStorage.getItem('my_bundle')) || [];
+      var c = JSON.parse(localStorage.getItem('my_custom_bundle')) || [];
+      s.forEach(function (i) { n += (i.qty || 1); });
+      n += b.length + c.length;
+    } catch (e) { /* cart not readable yet */ }
+    var el = document.getElementById('floating-cart-count');
+    if (el) { el.textContent = n; el.style.display = n > 0 ? 'flex' : 'none'; }
+  }
+  updateFloatingCart();
+  setInterval(updateFloatingCart, 1000);
 })();
 </script>
 </body>
