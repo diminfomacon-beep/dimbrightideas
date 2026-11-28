@@ -217,7 +217,8 @@ function tryVariationPhoto(card, display, value) {
   var img = card.querySelector('.prod-img');
   if (!img) return;
   var key = display + ' - ' + value;
-  var main = mainPhotoURL(display);
+  if (!card.getAttribute('data-main-photo')) { card.setAttribute('data-main-photo', img.getAttribute('src') || ''); }
+  var main = card.getAttribute('data-main-photo') || mainPhotoURL(display);
   var base = 'https://dimbrightideas.com/photos/' + encodeURIComponent(key);
   var exts = ['jpg', 'png', 'jpeg'];
   var token = parseInt(card.getAttribute('data-photo-token') || '0', 10) + 1;
@@ -232,7 +233,7 @@ function tryVariationPhoto(card, display, value) {
   probe.onerror = function () {
     attempt++;
     if (attempt < exts.length) { probe.src = base + '.' + exts[attempt]; return; }
-    if (img.getAttribute('src') !== main) { img.src = main; }
+    if (main && img.getAttribute('src') !== main) { img.src = main; img.style.display = ''; }
   };
   // exact file from the manifest when known (one request); otherwise probe .jpg/.png/.jpeg
   probe.src = PHOTO[key] ? 'https://dimbrightideas.com/photos/' + encodeURIComponent(PHOTO[key]) : base + '.' + exts[0];

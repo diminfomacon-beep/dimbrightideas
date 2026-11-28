@@ -170,7 +170,8 @@ function tryVariationPhoto(card, display, value) {
   if (!img) return;
   var key = display + ' - ' + value;
   var base = 'https://dimbrightideas.com/photos/' + encodeURIComponent(VAR_PHOTO_MAP[key] || key);
-  var main = 'https://dimbrightideas.com/photos/' + encodeURIComponent(display) + '.jpg';
+  if (!card.getAttribute('data-main-photo')) { card.setAttribute('data-main-photo', img.getAttribute('src') || ''); }
+  var main = card.getAttribute('data-main-photo');
   var exts = ['jpg', 'png', 'jpeg'];
   var token = parseInt(card.getAttribute('data-photo-token') || '0', 10) + 1;
   card.setAttribute('data-photo-token', token);
@@ -184,7 +185,7 @@ function tryVariationPhoto(card, display, value) {
   probe.onerror = function () {
     attempt++;
     if (attempt < exts.length) { probe.src = base + '.' + exts[attempt]; return; }
-    if (img.getAttribute('src') !== main) { img.src = main; }
+    if (main && img.getAttribute('src') !== main) { img.src = main; img.style.display = ''; }
   };
   probe.src = base + '.' + exts[0];
 }
