@@ -161,6 +161,34 @@
         });
     }
 
+    // Cotton T-shirt size rule: only Black, White, Royal Blue, Red, Daisy, and
+    // Violet come in 2XL/3XL. When any other color is picked, grey out 2XL and 3XL.
+    (function () {
+        if (baseName !== 'Adult Cotton Short Sleeve T-Shirt') return;
+        var colorMenu = null, sizeMenu = null;
+        document.querySelectorAll('.dynamic-option-menu').forEach(function (menu) {
+            if (menu.dataset.groupName === 'Color') colorMenu = menu;
+            if (menu.dataset.groupName === 'Size') sizeMenu = menu;
+        });
+        if (!colorMenu || !sizeMenu) return;
+        var allSizes = ['Black', 'White', 'Royal Blue', 'Red', 'Daisy', 'Violet'];
+        function applySizeRule() {
+            var allowBig = allSizes.indexOf(colorMenu.value) !== -1;
+            var needsReset = false;
+            Array.prototype.forEach.call(sizeMenu.options, function (opt) {
+                var isBig = (opt.value === '2XL' || opt.value === '3XL');
+                opt.disabled = isBig && !allowBig;
+                if (opt.disabled && opt.selected) needsReset = true;
+            });
+            if (needsReset) {
+                sizeMenu.value = 'XL';
+                reportPrice();
+            }
+        }
+        colorMenu.addEventListener('change', applySizeRule);
+        applySizeRule();
+    })();
+
     // Tell the parent page (the catalog card) the selected variation's total
     // price, so the card's displayed price follows the option picked. Uses
     // postMessage so it works whether this button is same-origin or
