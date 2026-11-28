@@ -277,6 +277,8 @@ function rowsFromCSV(text) {
     if (!r || r.length < 4) return;
     var name = (r[0] || '').trim(), price = parseFloat((r[1] || '').trim()),
         vars = (r[2] || '').trim(), url = (r[3] || '').trim();
+    // If the sheet's price cell is blank in the published copy, read it from the button URL (it carries price=...).
+    if (isNaN(price)) { var m = url.match(/[?&]price=([0-9.]+)/); if (m) price = parseFloat(m[1]); }
     if (!name || isNaN(price) || !url) return;
     // Load the button from this site's own widget (same origin) so the cart's
     // localStorage is shared. The sheet's URL points to the Mothers_Day widget
